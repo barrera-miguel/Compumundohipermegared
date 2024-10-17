@@ -7,7 +7,14 @@ print("-----------------------------")
 
 while True:
 
-    ciudad = input("Ingrese una ciudad: ").title()
+    while True:
+        ciudad = input("Ingrese una ciudad: ").title()
+        if ciudad.isdigit() or len(ciudad) == 0:
+            print("-----------------------------")
+            print("Entrada no válida. Intente nuevamente")
+            print("-----------------------------")
+        else:
+            break
     
     API_KEY ="acá va la api key"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric&lang=es"
