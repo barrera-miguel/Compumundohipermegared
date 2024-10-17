@@ -9,7 +9,7 @@ while True:
 
     ciudad = input("Ingrese una ciudad: ").title()
     
-    API_KEY ="0f331f0efeb776ca406e32210a0cb36f"
+    API_KEY ="acá va la api key"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric&lang=es"
     res = requests.get(url)
     data = res.json()
