@@ -4,38 +4,40 @@ print("-----------------------------")
 print("--------APP DEL CLIMA--------")
 print("by Compumundohipermegared")
 print("-----------------------------")
-print("Para consultar la temperatura complete los siguientes datos")
-departamento= input("Ingrese la ciudad: ")
 
-provincia = input("Ingrese la provincia: ")
+while True:
 
-pais = "AR"
+    ciudad = input("Ingrese una ciudad: ").title()
+    
+    API_KEY ="0f331f0efeb776ca406e32210a0cb36f"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric&lang=es"
+    res = requests.get(url)
+    data = res.json()
 
-api_key ="0f331f0efeb776ca406e32210a0cb36f"
+    temp = data["main"]["temp"]
+    descripcion = data["weather"] [0] ["description"]
+    minima = data["main"]["temp_min"]
+    maxima = data["main"]["temp_max"]
+    humedad = data["main"]["humidity"]
 
-url=f"https://api.openweathermap.org/data/2.5/weather?q={departamento},{provincia},{pais}&units=metric&appid={api_key}"
+    print("-----------------------------")
+    print(f"Clima en {ciudad}:")
+    print(f"Temperatura actual: {temp}°")
+    print(f"Temperatura mínima: {minima}°")
+    print(f"Temperatura máxima: {maxima}°")
+    print(f"Humedad: {humedad} %")
+    print(f"Descripción: {descripcion}")
+    print("-----------------------------")
 
-res = requests.get(url)
+    while True:
+        opcion = input("¿Quiere hacer otra consulta? (ingrese 's' para sí o 'n' para no): ").lower()
+        print("-----------------------------")
 
-data = res.json()
-
-temp = data["main"]["temp"]
-descripcion= data["weather"] [0] ["description"]
-minima= data["main"]["temp_min"]
-maxima= data["main"]["temp_max"]
-humedad= data["main"]["humidity"]
-print("-----------------------------")
-print("Temperatura actual: ", temp)
-print("Temperatura mínima: ", minima)
-print("Temperatura máxima: ", maxima)
-print("Humedad:", humedad,"%")
-print("Descripción: ", descripcion)
-print("-----------------------------")
-
-
-
-
-
-
-
-
+        if opcion == 'n':
+            print("Saliendo...")
+            exit()
+        elif opcion == 's':
+            break
+        else:
+            print("Opción no válida. Intente nuevamente")
+            print("-----------------------------")
