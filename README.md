@@ -8,11 +8,16 @@
 
 ## Manual de Instalación y Deployment
 1. Ubicarse en el directorio deseado.
-2. Iniciar la terminal y ejecutar los siguientes comandos:
-   - Clonar el repositorio:
+2. Iniciar la terminal y clonar el repositorio:
      ```bash
      git clone https://github.com/barrera-miguel/Compumundohipermegared.git
      ```
+3. Modificar el archivo app.py para incluir tu clave API
+    - API_KEY en línea 19:
+     ```bash
+     API_KEY = "tu_api_key_aquí"
+     ```
+4. Ejecutar Docker en terminal
    - Construir la imagen de Docker:
      ```bash
      docker build -t nombre_imagen .
