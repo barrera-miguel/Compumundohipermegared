@@ -16,7 +16,7 @@ while True:
         else:
             break
     
-    API_KEY = "a44420d695aa26daccb827e71f32aaa5"
+    API_KEY = "acá va la api key"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric&lang=es"
     res = requests.get(url)
     data = res.json()
