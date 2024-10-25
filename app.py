@@ -65,12 +65,13 @@ while True:
             for forecast in data_forecast['list']:
                 fecha = forecast['dt_txt']
                 temp_forecast = forecast['main']['temp']
+                hum_forecast = forecast["main"]["humidity"]
                 desc_forecast = forecast['weather'][0]['description']
                 if unidades == "Imperial":
-                    temp_forecast_c = (temp * 9/5) + 32 
-                    print(f"{fecha}: {temp_forecast_c}°F, {desc_forecast}")
+                    temp_forecast_c = (temp_forecast * 9/5) + 32 
+                    print(f"{fecha}: {temp_forecast_c:.2f}°F, Humedad: {hum_forecast} %, {desc_forecast}")
                 else:
-                    print(f"{fecha}: {temp_forecast}°C, {desc_forecast}")
+                    print(f"{fecha}: {temp_forecast:.2f}°C, Humedad: {hum_forecast} %, {desc_forecast}")
             print("------------------------------------------")
             break
         else:
