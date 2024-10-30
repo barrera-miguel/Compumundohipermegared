@@ -1,4 +1,9 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 
 def mostrar_portada():
     print("-----------------------------")
@@ -81,7 +86,6 @@ def realizar_nueva_consulta():
         print("-----------------------------")
 
 def main():
-    API_KEY = "0f331f0efeb776ca406e32210a0cb36f"
     mostrar_portada()
 
     while True:
