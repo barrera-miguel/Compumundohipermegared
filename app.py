@@ -16,7 +16,7 @@ while True:
     elif seleccion == "3":
         historial()
     elif seleccion == "4":
-        configuracion()
+       units,simbolo= configuracion(units,simbolo)
     elif seleccion == "5":
         continuar = input("¿Está seguro de querer salir? (s/n): ")
         if continuar.lower() != 'n':

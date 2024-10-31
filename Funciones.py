@@ -101,14 +101,15 @@ def historial():
                 print("Opción no válida. Por favor, seleccione nuevamente a - b - c .")
                 print("--------------------------------------------------------------")
 
-def configuracion():
+def configuracion(units,simbolo):
     while True:
             print("------CONFIGURACIÓN------")
             config = input("a- Unidad de medida\nb- Volver\n")
             if config.lower() == "a":
                 units,simbolo = cambio_unidad(units,simbolo)
+                return units,simbolo
             elif config.lower() == "b":
-                break
+                return units,simbolo
             else: 
                 print("---------------------------ERROR--------------------------")
                 print("Opción no válida. Por favor, seleccione nuevamente a - b .")
