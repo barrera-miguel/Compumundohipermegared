@@ -1,4 +1,8 @@
-import requests
+import os
+import requests # type: ignore
+from dotenv import load_dotenv # type: ignore
+
+
 def mostrar_portada():
     print("-----------------------------")
     print("--------APP DEL CLIMA--------")
@@ -71,6 +75,13 @@ def mostrar_clima_actual(data, ciudad, simbolo):
     print(f"Descripción: {descripcion}")
     print("-----------------------------")
 
+def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo):
+     with open("historial_diario.txt", "a") as file:
+         file.write(f"{ciudad} - Temperatura actual: {temp} {simbolo}, "
+                   f"Máxima: {maxima} {simbolo}, Mínima: {minima} {simbolo}, "
+                   f"Humedad: {humedad}%, Descripción: {descripcion}\n")
+
+ 
 def solicitar_clima_extendido(ciudad, API_KEY, units):
     url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang=es"
     res_forecast = requests.get(url_forecast)
@@ -85,6 +96,18 @@ def mostrar_pronostico_extendido(data_forecast, simbolo):
         desc_forecast = forecast['weather'][0]['description']
         print(f"{fecha}: {temp_forecast} {simbolo}, Humedad: {hum_forecast} %, {desc_forecast}")
     print("------------------------------------------")
+
+    guardar_historial_extendido(data_forecast, simbolo)
+def guardar_historial_extendido(data_forecast, simbolo):
+    """Guarda el historial del pronóstico extendido en un archivo de texto."""
+    with open("historial_extendido.txt", "a") as file:  # Agregado para guardar el historial extendido
+        for forecast in data_forecast['list']:
+            fecha = forecast['dt_txt']
+            temp_forecast = forecast['main']['temp']
+            hum_forecast = forecast["main"]["humidity"]
+            desc_forecast = forecast['weather'][0]['description']
+            file.write(f"{fecha} - Temperatura: {temp_forecast} {simbolo}, "
+                       f"Humedad: {hum_forecast}%, Descripción: {desc_forecast}\n")    
 
 def historial():
     while True:
