@@ -1,7 +1,7 @@
 import os
 import requests # type: ignore
 from dotenv import load_dotenv # type: ignore
-
+from datetime import datetime
 
 def mostrar_portada():
     print("-----------------------------")
@@ -74,13 +74,8 @@ def mostrar_clima_actual(data, ciudad, simbolo):
     print(f"Humedad: {humedad} %")
     print(f"Descripción: {descripcion}")
     print("-----------------------------")
-
-def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo):
-     with open("historial_diario.txt", "a") as file:
-         file.write(f"{ciudad} - Temperatura actual: {temp} {simbolo}, "
-                   f"Máxima: {maxima} {simbolo}, Mínima: {minima} {simbolo}, "
-                   f"Humedad: {humedad}%, Descripción: {descripcion}\n")
-
+    fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual)
  
 def solicitar_clima_extendido(ciudad, API_KEY, units):
     url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang=es"
@@ -96,27 +91,18 @@ def mostrar_pronostico_extendido(data_forecast, simbolo):
         desc_forecast = forecast['weather'][0]['description']
         print(f"{fecha}: {temp_forecast} {simbolo}, Humedad: {hum_forecast} %, {desc_forecast}")
     print("------------------------------------------")
-
-    guardar_historial_extendido(data_forecast, simbolo)
-def guardar_historial_extendido(data_forecast, simbolo):
-    """Guarda el historial del pronóstico extendido en un archivo de texto."""
-    with open("historial_extendido.txt", "a") as file:  # Agregado para guardar el historial extendido
-        for forecast in data_forecast['list']:
-            fecha = forecast['dt_txt']
-            temp_forecast = forecast['main']['temp']
-            hum_forecast = forecast["main"]["humidity"]
-            desc_forecast = forecast['weather'][0]['description']
-            file.write(f"{fecha} - Temperatura: {temp_forecast} {simbolo}, "
-                       f"Humedad: {hum_forecast}%, Descripción: {desc_forecast}\n")    
+    fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    guardar_historial_extendido(data_forecast, simbolo,fecha_actual)
+   
 
 def historial():
     while True:
             print("------HISTORIAL------")
             historial = input("a- Diario\nb- Extendido\nc- Volver\n")
             if historial.lower() == "a":
-                print("--Muestro historial diario--")
+               mostrar_historial()
             elif historial.lower() =="b":
-                print("--Muestro historial extendido--")
+                mostrar_historial_extendido()
             elif historial.lower() == "c":
                 break
             else:
@@ -124,14 +110,68 @@ def historial():
                 print("Opción no válida. Por favor, seleccione nuevamente a - b - c .")
                 print("--------------------------------------------------------------")
 
+def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual):
+     with open("historial_diario.txt", "a") as file:
+         file.write(f"----------------{ciudad}----{fecha_actual}--------------------\n"
+                    f"- Temperatura actual: {temp} {simbolo}, "
+                   f"Máxima: {maxima} {simbolo}, Mínima: {minima} {simbolo}, "
+                   f"Humedad: {humedad}%, Descripción: {descripcion}\n"
+                   f"---------------------------------------------------------------\n")
+
+def guardar_historial_extendido(data_forecast, simbolo,fecha_actual):
+    """Guarda el historial del pronóstico extendido en un archivo de texto."""
+    with open("historial_extendido.txt", "a") as file:  # Agregado para guardar el historial extendido
+        file.write(f"----------------{fecha_actual}----------------\n")
+        for forecast in data_forecast['list']:
+            fecha = forecast['dt_txt']
+            temp_forecast = forecast['main']['temp']
+            hum_forecast = forecast["main"]["humidity"]
+            desc_forecast = forecast['weather'][0]['description']
+            file.write(f"{fecha} - Temperatura: {temp_forecast} {simbolo}, "
+                       f"Humedad: {hum_forecast}%, Descripción: {desc_forecast}\n")
+        file.write(f"---------------------------------------------------\n")
+            
+def mostrar_historial():
+    try:
+        with open("historial_diario.txt", "r", encoding="latin-1") as archivo:
+            contenido = archivo.read()
+            if contenido:
+                print("Historial de consultas:")
+                print(contenido)
+            else:
+                print("El historial está vacío.")
+    except FileNotFoundError:
+        print("No se ha encontrado el archivo de historial.")
+
+def mostrar_historial_extendido():
+    try:
+        with open("historial_extendido.txt", "r",encoding="latin-1") as archivo:
+            contenido = archivo.read()
+            if contenido:
+                print("Historial de consultas Extendido:")
+                print(contenido)
+            else:
+                print("El historial está vacío.")
+    except FileNotFoundError:
+        print("No se ha encontrado el archivo de historial.")
+
+
 def configuracion(units,simbolo):
     while True:
             print("------CONFIGURACIÓN------")
-            config = input("a- Unidad de medida\nb- Volver\n")
+            config = input("a- Unidad de medida\nb- Borrar historial Diario\nc- Borrar historial Extendido\nd- Volver\n")
             if config.lower() == "a":
                 units,simbolo = cambio_unidad(units,simbolo)
                 return units,simbolo
             elif config.lower() == "b":
+                with open("historial_diario.txt", "w") as archivo:
+                    pass
+                print("Historial diario borrado correctamente.")
+            elif config.lower() == "c":
+                with open("historial_extendido.txt", "w") as archivo:
+                    pass
+                print("Historial extendido borrado correctamente.")
+            elif config.lower() == "d":
                 return units,simbolo
             else: 
                 print("---------------------------ERROR--------------------------")
