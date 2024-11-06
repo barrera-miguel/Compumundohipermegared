@@ -2,24 +2,60 @@ import os
 import requests # type: ignore
 from dotenv import load_dotenv # type: ignore
 from datetime import datetime
+from rich import print
+from rich.table import Table
+from rich.panel import Panel
+from rich.prompt import Prompt
+from rich.box import HEAVY
 
 def mostrar_portada():
-    print("-----------------------------")
-    print("--------APP DEL CLIMA--------")
-    print("by Compumundohipermegared")
-    print("-----------------------------")
+    # Crear el contenido de la portada con estilo de color
+    contenido_portada = "[bold cyan]APP DEL CLIMA 🔆[/bold cyan]\n[gray82]by Compumundohipermegared[/gray82]"
+
+    # Crear un panel alrededor del contenido de la portada
+    portada_panel = Panel(
+        contenido_portada,
+        title_align="center",
+        border_style="cyan",
+        padding=(1, 4),  # Añadir algo de espacio alrededor del contenido
+        expand=False
+    )
+
+    # Imprimir el panel
+    print(portada_panel)
+
+def mostrar_menu():
+    table = Table(show_header=False, box=HEAVY, show_lines=True)
+    
+    table.add_row("[bold yellow]1[/bold yellow]", "[yellow]Pronóstico actual[/yellow]")
+    table.add_row("[bold green]2[/bold green]", "[green]Pronóstico extendido[/green]")
+    table.add_row("[bold blue]3[/bold blue]", "[blue]Historial de consultas[/blue]")
+    table.add_row("[bold magenta]4[/bold magenta]", "[magenta]Configuración[/magenta]")
+    table.add_row("[bold red]5[/bold red]", "[red]Salir[/red]")
+
+    panel = Panel(table, title="MENÚ", title_align="center", border_style="cyan", expand=False)
+
+    print(panel)
 
 def seleccionar_unidad():
     while True:
-        unidad = input("Unidad de temperatura (C para Celsius, F para Fahrenheit): ").strip().lower()
+        # Solicitar la unidad de temperatura usando Rich para darle estilo al prompt
+        unidad = Prompt.ask(
+            "[bold cyan]Unidad de temperatura[/bold cyan] ([bold yellow]C[/bold yellow] para [bold yellow]Celsius[/bold yellow], [bold green]F[/bold green] para [bold green]Fahrenheit[/bold green])"
+        ).strip().lower()
+
         if unidad == 'c':
             return 'metric', '°C'
         elif unidad == 'f':
             return 'imperial', '°F'
         else:
-            print("-----------------------------")
-            print("Entrada no válida. Intente nuevamente")
-            print("-----------------------------")
+            # Mensaje de error estilizado
+            error_panel = Panel(
+                "[bold red]⚠️  Entrada no válida. Intente nuevamente.[/bold red]",
+                border_style="red",
+                expand=False
+            )
+            print(error_panel)
 
 def unidad_actual(unidad):
     if unidad == "metric":

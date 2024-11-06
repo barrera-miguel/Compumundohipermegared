@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from Funciones import mostrar_portada,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
+from Funciones import mostrar_portada, mostrar_menu, seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
 import os
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
@@ -7,7 +7,7 @@ mostrar_portada()
 units, simbolo = seleccionar_unidad()
 ciudad=""
 while True:
-    print("-----------MENÚ-----------\n 1- Pronóstico actual \n 2- Pronóstico extendido \n 3- Historial de consultas\n 4- Configuración \n 5- Salir ")
+    mostrar_menu()
     seleccion = input("Seleccione una opción (1-5): ")
     if seleccion == "1":
        mostrar_clima_actual(solicitar_clima(ingresar_ciudad(), API_KEY, units), ciudad, simbolo)
