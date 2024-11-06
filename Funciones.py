@@ -113,7 +113,7 @@ def historial():
             print("--------------------------------------------------------------")
 
 def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual):
-    with open("historial_diario.txt", "a") as file:
+    with open("historial_diario.txt", "a",encoding="utf-8") as file:
          file.write(f"----------------{ciudad}----{fecha_actual}--------------------\n"
                     f"- Temperatura actual: {temp} {simbolo}, "
                    f"Máxima: {maxima} {simbolo}, Mínima: {minima} {simbolo}, "
@@ -121,7 +121,7 @@ def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbol
                    f"---------------------------------------------------------------\n")
 
 def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad):
-    with open("historial_extendido.txt", "a") as file:  
+    with open("historial_extendido.txt", "a",encoding="utf-8") as file:  
         file.write(f"----------------{ciudad}------{fecha_actual}----------------\n")
         for forecast in data_forecast['list']:
             fecha = forecast['dt_txt']
@@ -136,7 +136,7 @@ def mostrar_historial():
     while True:
         limpiar_consola()
         try:
-            with open("historial_diario.txt", "r", encoding="latin-1") as archivo:
+            with open("historial_diario.txt", "r", encoding="utf-8") as archivo:
                 contenido = archivo.read()
                 if contenido:
                     print("Historial de consultas:")
@@ -154,7 +154,7 @@ def mostrar_historial_extendido():
     while True:
         limpiar_consola()
         try:
-            with open("historial_extendido.txt", "r",encoding="latin-1") as archivo:
+            with open("historial_extendido.txt", "r",encoding="utf-8") as archivo:
                 contenido = archivo.read()
                 if contenido:
                     print("Historial de consultas Extendido:")
