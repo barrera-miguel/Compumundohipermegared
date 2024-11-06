@@ -82,7 +82,7 @@ def solicitar_clima_extendido(ciudad, API_KEY, units):
     res_forecast = requests.get(url_forecast)
     return res_forecast.json()
 
-def mostrar_pronostico_extendido(data_forecast, simbolo):
+def mostrar_pronostico_extendido(data_forecast, simbolo,ciudad):
     print("-------Pronóstico Extendido a 5 Días-------")
     for forecast in data_forecast['list']:
         fecha = forecast['dt_txt']
@@ -92,7 +92,7 @@ def mostrar_pronostico_extendido(data_forecast, simbolo):
         print(f"{fecha}: {temp_forecast} {simbolo}, Humedad: {hum_forecast} %, {desc_forecast}")
     print("------------------------------------------")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial_extendido(data_forecast, simbolo,fecha_actual)
+    guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad)
    
 
 def historial():
@@ -118,10 +118,10 @@ def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbol
                    f"Humedad: {humedad}%, Descripción: {descripcion}\n"
                    f"---------------------------------------------------------------\n")
 
-def guardar_historial_extendido(data_forecast, simbolo,fecha_actual):
+def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad):
     """Guarda el historial del pronóstico extendido en un archivo de texto."""
     with open("historial_extendido.txt", "a") as file:  # Agregado para guardar el historial extendido
-        file.write(f"----------------{fecha_actual}----------------\n")
+        file.write(f"----------------{ciudad}------{fecha_actual}----------------\n")
         for forecast in data_forecast['list']:
             fecha = forecast['dt_txt']
             temp_forecast = forecast['main']['temp']
