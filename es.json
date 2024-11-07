@@ -4,7 +4,7 @@
   "entrada_no_validad":"Entrada no válida. Intente nuevamente",
   "seleccion_1_5":"Seleccione una opción (1-5):" ,
   "otra_consulta":"¿Desea hacer otra consulta? (SI/NO)",
-  "seguro_salir":"¿Está seguro de querer salir? (s/n): ",
+  "seguro_salir":"¿Está seguro de querer salir? (SI/NO): ",
   "saliendo":"Saliendo...",
   "regresar_menu":"Regresando al menú...",
   "opcion_no":"Opción no válida. Por favor, seleccione nuevamente entre 1 y 5.",
@@ -22,6 +22,19 @@
   "opciones_configuracion":"a- Cambiar unidad de medida\nb- Cambiar idioma\nc- Borrar historial Diario\nd- Borrar historial Extendido\ne- Volver\n",
   "seguro_historial":"Esta seguro de borrar el historial? (SI/NO)",
   "seguro_extendido":"Esta seguro de borrar el historial extendido? (SI/NO)",
-  "error_configuracion":"Opción no válida. Por favor, seleccione nuevamente a - b ."
+  "error_configuracion":"Opción no válida. Por favor, seleccione nuevamente a - b .",
+  "temp_actual":"Temperatura actual en ",
+  "temp_maxima":"Temperatura máxima: ",
+  "temp_minima":"Temperatura mínima: ",
+  "humedad":"Humedad: ",
+  "descripcion":"Descripción: ",
+  "historial_consultas":"Historial de consultas:",
+  "archivo_vacio":"El historial está vacío.",
+  "no_archivo":"No se ha encontrado el archivo de historial.",
+  "desea_salir":"¿Desea salir? (SI/NO)",
+  "historial_consultas_extendido":"Historial de consultas Extendido:",
+  "idiomas":"------------IDIOMAS---------",
+  "opciones_idiomas":"a- Español \nb- English",
+  "temp_extendido":"- Temperatura:"
 }
 

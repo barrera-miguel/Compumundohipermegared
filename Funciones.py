@@ -11,12 +11,26 @@ def mostrar_portada():
     print("by Compumundohipermegared")
     print("-----------------------------")
 
+def seleccionar_language():
+    while True:
+        print("")
+        lenguaje  = input("Español = es / English = en : ")
+        if lenguaje.lower() == "es":
+            return "es"
+        elif lenguaje.lower() == "en":
+            return "en"
+        else:
+            print("-------------------------------------")
+            print("Caracter invalido / Invalid character")
+            print("-------------------------------------")
+    
+
 def seleccionar_unidad(texts):
     while True:
         unidad = input(texts['selec_unidad']).strip().lower()
-        if unidad == 'c':
+        if unidad.lower() == 'c':
             return 'metric', '°C'
-        elif unidad == 'f':
+        elif unidad.lower() == 'f':
             return 'imperial', '°F'
         else:
             print("-----------------------------")
@@ -63,25 +77,24 @@ def solicitar_clima(ciudad, API_KEY, units,lenguaje):
     res = requests.get(url)
     return res.json()
 
-def mostrar_clima_actual(data, ciudad, simbolo):
-
+def mostrar_clima_actual(data, ciudad, simbolo,texts):
     temp = data["main"]["temp"]
     descripcion = data["weather"] [0] ["description"]
     minima = data["main"]["temp_min"]
     maxima = data["main"]["temp_max"]
     humedad = data["main"]["humidity"]
     print("-----------------------------")
-    print(f'Temperatura actual en {ciudad}: {temp} {simbolo}')
-    print(f'Temperatura máxima: {maxima} {simbolo}')
-    print(f'Temperatura mínima: {minima} {simbolo}')
-    print(f"Humedad: {humedad} %")
-    print(f"Descripción: {descripcion}")
+    print(texts["temp_actual"] + f"{ciudad}: {temp} {simbolo}")
+    print(texts["temp_maxima"] + f"{maxima} {simbolo}")
+    print(texts["temp_minima"]+f"{minima} {simbolo}")
+    print(texts["humedad"]+f"{humedad} %")
+    print(texts["descripcion"]+f"{descripcion}")
     print("-----------------------------")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual)
+    guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual,texts)
         
-def solicitar_clima_extendido(ciudad, API_KEY, units):
-    url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang=es"
+def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
+    url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
     res_forecast = requests.get(url_forecast)
     return res_forecast.json()
 
@@ -93,10 +106,10 @@ def mostrar_pronostico_extendido(data_forecast, simbolo,ciudad,texts):
         temp_forecast = forecast['main']['temp']
         hum_forecast = forecast["main"]["humidity"]
         desc_forecast = forecast['weather'][0]['description']
-        print(f"{fecha}: {temp_forecast} {simbolo}, Humedad: {hum_forecast} %, {desc_forecast}")
+        print((f"{fecha}: {temp_forecast} {simbolo} ")+ texts["humedad"] + (f"{hum_forecast} %, {desc_forecast}"))
     print("------------------------------------------")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad)
+    guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts)
     
 def historial(texts):
     while True:
@@ -104,9 +117,9 @@ def historial(texts):
         print(texts["historial"])
         historial = input(texts["opciones_historial"])
         if historial.lower() == "a":
-            mostrar_historial()
+            mostrar_historial(texts)
         elif historial.lower() =="b":
-            mostrar_historial_extendido()
+            mostrar_historial_extendido(texts)
         elif historial.lower() == "c":
             break
         else:
@@ -114,15 +127,15 @@ def historial(texts):
             print(texts["error_historial"])
             print("--------------------------------------------------------------")
 
-def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual):
+def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual,texts):
     with open("historial_diario.txt", "a",encoding="utf-8") as file:
          file.write(f"----------------{ciudad}----{fecha_actual}--------------------\n"
-                    f"- Temperatura actual: {temp} {simbolo}, "
-                   f"Máxima: {maxima} {simbolo}, Mínima: {minima} {simbolo}, "
-                   f"Humedad: {humedad}%, Descripción: {descripcion}\n"
+                     f"{texts["temp_actual"]} {temp} {simbolo}, "
+                   f"{texts["temp_maxima"]} {maxima} {simbolo}, {texts["temp_minima"]} {minima} {simbolo}, "
+                   f"{texts["humedad"]}{humedad}%, {texts["descripcion"]} {descripcion}\n"
                    f"---------------------------------------------------------------\n")
 
-def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad):
+def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts):
     with open("historial_extendido.txt", "a",encoding="utf-8") as file:  
         file.write(f"----------------{ciudad}------{fecha_actual}----------------\n")
         for forecast in data_forecast['list']:
@@ -130,43 +143,43 @@ def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad):
             temp_forecast = forecast['main']['temp']
             hum_forecast = forecast["main"]["humidity"]
             desc_forecast = forecast['weather'][0]['description']
-            file.write(f"{fecha} - Temperatura: {temp_forecast} {simbolo}, "
-                       f"Humedad: {hum_forecast}%, Descripción: {desc_forecast}\n")
+            file.write(f"{fecha} {texts["temp_extendido"]} {temp_forecast} {simbolo}, "
+                       f"{texts["humedad"]}{hum_forecast}%, {texts["descripcion"]} {desc_forecast}\n")
         file.write(f"---------------------------------------------------\n")
             
-def mostrar_historial():
+def mostrar_historial(texts):
     while True:
         limpiar_consola()
         try:
             with open("historial_diario.txt", "r", encoding="utf-8") as archivo:
                 contenido = archivo.read()
                 if contenido:
-                    print("Historial de consultas:")
+                    print(texts["historial_consultas"])
                     print(contenido)
                 else:
-                    print("El historial está vacío.")
+                    print(texts["archivo_vacio"])
         except FileNotFoundError:
-            print("No se ha encontrado el archivo de historial.")
-        salir = input("¿Desea salir? (SI/NO)")
-        if salir.lower()=="si":
+            print(texts["no_archivo"])
+        salir = input(texts["desea_salir"])
+        if salir.lower() == "si" or salir.lower() == "yes":
             break
         else: continue
 
-def mostrar_historial_extendido():
+def mostrar_historial_extendido(texts):
     while True:
         limpiar_consola()
         try:
             with open("historial_extendido.txt", "r",encoding="utf-8") as archivo:
                 contenido = archivo.read()
                 if contenido:
-                    print("Historial de consultas Extendido:")
+                    print(texts["historial_consultas_extendido"])
                     print(contenido)
                 else:
-                    print("El historial está vacío.")
+                    print(texts["archivo_vacio"])
         except FileNotFoundError:
-            print("No se ha encontrado el archivo de historial.")
-        salir = input("¿Desea salir? (SI/NO)")
-        if salir.lower()=="si":
+            print(texts["no_archivo"])
+        salir = input(texts["desea_salir"])
+        if salir.lower() == "si" or salir.lower() == "yes":
             break
         else: continue
 
@@ -179,27 +192,27 @@ def configuracion(units,simbolo,texts,language_code):
         if config.lower() == "a":
             units,simbolo = cambio_unidad(units,simbolo,texts)
         elif config.lower() == "b":
-            print("-------------IDIOMAS---------")
-            idioma = input("a- Español \nb- English")
+            limpiar_consola()
+            print(texts["idiomas"])
+            idioma = input(texts["opciones_idiomas"]+"\n")
             if idioma == "a":
                 language_code ="es"
                 break
             elif idioma == "b":
                 language_code = "en"
                 break
-            else:print("Seleccion incorrecta")
+            else:print(texts["error_ciudad"])
            
-            
         elif config.lower() == "c":
             limpiar_consola()
             seguro = input(texts["seguro_historial"])
-            if seguro.lower() == "si":
+            if seguro.lower() == "si" or  seguro.lower() == "yes":
                 with open("historial_diario.txt", "w") as archivo:
                     pass
         elif config.lower() == "d":
             limpiar_consola()
             seguro = input(texts["seguro_extendido"])
-            if seguro.lower() == "si":
+            if seguro.lower() == "si" or  seguro.lower() == "yes":
                 with open("historial_extendido.txt", "w") as archivo:
                     pass
         elif config.lower() == "e":

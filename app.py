@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from Funciones import limpiar_consola, mostrar_portada,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
+from Funciones import limpiar_consola, mostrar_portada, seleccionar_language,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
 
 import os
 
@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
 mostrar_portada()
-language_code = input("es = Español ------ en = English :")
+language_code = seleccionar_language()
 texts = idioma(language_code)
 units, simbolo = seleccionar_unidad(texts)
 
@@ -21,24 +21,40 @@ while True:
     seleccion = input(texts["seleccion_1_5"])
 
     if seleccion == "1":
-        while True:
-            limpiar_consola()
+        limpiar_consola()
+        salir="yes"
+        while salir !="no":
+            
             ciudad = ingresar_ciudad(texts)
-            mostrar_clima_actual(solicitar_clima(ciudad, API_KEY, units,language_code), ciudad, simbolo)
-            salir = input(texts["otra_consulta"])
-            if salir.lower()=="no":
-                break
-            else: continue
+            mostrar_clima_actual(solicitar_clima(ciudad, API_KEY, units,language_code), ciudad, simbolo,texts)
+            while True:
+                salir = input(texts["otra_consulta"])
+                if salir.lower()=="no":
+                    break
+                elif salir.lower()=="yes" or salir.lower()=="si" :
+                    limpiar_consola()
+                    break
+                else: 
+                    print(texts["entrada_no_validad"])
+                    continue
 
     elif seleccion == "2":
-        while True:
-            limpiar_consola()
+        limpiar_consola()
+        salir_extendido="yes"
+        while salir_extendido != "no":
             ciudad = ingresar_ciudad(texts)
-            mostrar_pronostico_extendido(solicitar_clima_extendido(ciudad, API_KEY, units), simbolo,ciudad,texts)
-            salir_extendido = input(texts["otra_consulta"])
-            if salir_extendido.lower()=="no":
-                break
-            else: continue
+            mostrar_pronostico_extendido(solicitar_clima_extendido(ciudad, API_KEY, units,language_code), simbolo,ciudad,texts)
+            while True:
+                salir_extendido = input(texts["otra_consulta"])
+                if salir_extendido.lower()=="no":
+                    break
+                elif salir_extendido.lower()=="yes" or salir_extendido.lower()=="si":
+                    limpiar_consola()
+                    break
+                else: 
+                    print(texts["entrada_no_validad"])
+                    continue
+        
 
     elif seleccion == "3":
         historial(texts)
@@ -53,7 +69,7 @@ while True:
     elif seleccion == "5":
         limpiar_consola()
         continuar = input(texts["seguro_salir"])
-        if continuar.lower() != 'n':
+        if continuar.lower() != 'no':
             print(texts["saliendo"])
             break
         else:print(texts["regresar_menu"])
