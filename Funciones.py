@@ -127,14 +127,13 @@ def historial(texts):
             print(texts["error_historial"])
             print("--------------------------------------------------------------")
 
-def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual,texts):
-    with open("historial_diario.txt", "a",encoding="utf-8") as file:
+def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo, fecha_actual, texts):
+    with open("historial_diario.txt", "a", encoding="utf-8") as file:
          file.write(f"----------------{ciudad}----{fecha_actual}--------------------\n"
-                     f"{texts["temp_actual"]} {temp} {simbolo}, "
-                   f"{texts["temp_maxima"]} {maxima} {simbolo}, {texts["temp_minima"]} {minima} {simbolo}, "
-                   f"{texts["humedad"]}{humedad}%, {texts["descripcion"]} {descripcion}\n"
-                   f"---------------------------------------------------------------\n")
-
+                    f"{texts['temp_actual']} {temp} {simbolo}, "
+                    f"{texts['temp_maxima']} {maxima} {simbolo}, {texts['temp_minima']} {minima} {simbolo}, "
+                    f"{texts['humedad']}{humedad}%, {texts['descripcion']} {descripcion}\n"
+                    f"---------------------------------------------------------------\n")
 def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts):
     with open("historial_extendido.txt", "a",encoding="utf-8") as file:  
         file.write(f"----------------{ciudad}------{fecha_actual}----------------\n")
@@ -143,8 +142,8 @@ def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts
             temp_forecast = forecast['main']['temp']
             hum_forecast = forecast["main"]["humidity"]
             desc_forecast = forecast['weather'][0]['description']
-            file.write(f"{fecha} {texts["temp_extendido"]} {temp_forecast} {simbolo}, "
-                       f"{texts["humedad"]}{hum_forecast}%, {texts["descripcion"]} {desc_forecast}\n")
+            file.write(f"{fecha} {texts['temp_extendido']} {temp_forecast} {simbolo}, "
+                       f"{texts['humedad']}{hum_forecast}%, {texts['descripcion']} {desc_forecast}\n")
         file.write(f"---------------------------------------------------\n")
             
 def mostrar_historial(texts):

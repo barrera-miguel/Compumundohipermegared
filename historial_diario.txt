@@ -1,6 +1,0 @@
-----------------Mendoza----2024-11-07 01:48:44--------------------
-Current temperature in  69.33 °F, Maximum temperature:  69.33 °F, Minimum temperature:  69.33 °F, Humidity: 26%, Description:  clear sky
----------------------------------------------------------------
-----------------Mendoza----2024-11-07 01:48:59--------------------
-Current temperature in  20.74 °C, Maximum temperature:  20.74 °C, Minimum temperature:  20.74 °C, Humidity: 26%, Description:  clear sky
----------------------------------------------------------------
