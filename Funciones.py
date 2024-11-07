@@ -1,7 +1,9 @@
 import os
-import requests # type: ignore
-from dotenv import load_dotenv # type: ignore
+import requests 
+from dotenv import load_dotenv 
 from datetime import datetime
+from idiomas import idioma
+
 from rich import print
 from rich.table import Table
 from rich.panel import Panel
@@ -37,25 +39,31 @@ def mostrar_menu():
 
     print(panel)
 
-def seleccionar_unidad():
+def seleccionar_language():
     while True:
-        # Solicitar la unidad de temperatura usando Rich para darle estilo al prompt
-        unidad = Prompt.ask(
-            "[bold cyan]Unidad de temperatura[/bold cyan] ([bold yellow]C[/bold yellow] para [bold yellow]Celsius[/bold yellow], [bold green]F[/bold green] para [bold green]Fahrenheit[/bold green])"
-        ).strip().lower()
+        print("")
+        lenguaje  = input("Español = es / English = en : ")
+        if lenguaje.lower() == "es":
+            return "es"
+        elif lenguaje.lower() == "en":
+            return "en"
+        else:
+            print("-------------------------------------")
+            print("Caracter invalido / Invalid character")
+            print("-------------------------------------")
+    
 
-        if unidad == 'c':
+def seleccionar_unidad(texts):
+    while True:
+        unidad = input(texts['selec_unidad']).strip().lower()
+        if unidad.lower() == 'c':
             return 'metric', '°C'
-        elif unidad == 'f':
+        elif unidad.lower() == 'f':
             return 'imperial', '°F'
         else:
-            # Mensaje de error estilizado
-            error_panel = Panel(
-                "[bold red]⚠️  Entrada no válida. Intente nuevamente.[/bold red]",
-                border_style="red",
-                expand=False
-            )
-            print(error_panel)
+            print("-----------------------------")
+            print(texts["entrada_no_validad"])
+            print("-----------------------------")
 
 def unidad_actual(unidad):
     if unidad == "metric":
@@ -63,153 +71,187 @@ def unidad_actual(unidad):
     elif unidad == "imperial":
         return"Fahrenheit"
     
-def cambio_unidad(unidad,simbolo):
+def cambio_unidad(unidad,simbolo,texts):
     while True:
-        print("------Medidas------")
-        print(f"Actual: " + unidad_actual(unidad))
-        seleccion = input ("a- Celcius\nb- Fahrenheit\nc- Volver\n")
+        limpiar_consola()
+        print(texts["medidas"])
+        print(texts["actual"] + unidad_actual(unidad))
+        seleccion = input (texts["opciones_medidas"])
         if seleccion.lower() =="a":
-            unidad ='metric', '°C'
-            return unidad
+            unidad,simbolo ='metric', '°C'
         elif seleccion.lower() == "b":
-            unidad = 'imperial', '°F'
-            return unidad
+            unidad,simbolo = 'imperial', '°F'
         elif seleccion.lower() =="c":
-            return unidad,simbolo
+            break
         else:
             print("---------------------------ERROR------------------------------")
-            print("Opción no válida. Por favor, seleccione nuevamente a - b - c .")
+            print(texts["error_medidas"])
             print("--------------------------------------------------------------")
+    return unidad,simbolo
 
     
-def ingresar_ciudad():
+def ingresar_ciudad(texts):
     while True:
-        ciudad = input("Ingrese una ciudad: ").strip().title()
+        ciudad = input(texts["ingrese_ciudad"]).strip().title()
         if ciudad.isdigit() or len(ciudad) == 0:
             print("-----------------------------")
-            print("Entrada no válida. Intente nuevamente")
+            print(texts["error_ciudad"])
             print("-----------------------------")
         else:
             return ciudad
 
-def solicitar_clima(ciudad, API_KEY, units):
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units={units}&lang=es"
+def solicitar_clima(ciudad, API_KEY, units,lenguaje):
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
     res = requests.get(url)
     return res.json()
 
-def mostrar_clima_actual(data, ciudad, simbolo):
+def mostrar_clima_actual(data, ciudad, simbolo,texts):
     temp = data["main"]["temp"]
     descripcion = data["weather"] [0] ["description"]
     minima = data["main"]["temp_min"]
     maxima = data["main"]["temp_max"]
     humedad = data["main"]["humidity"]
     print("-----------------------------")
-    print(f'Temperatura actual en {ciudad}: {temp} {simbolo}')
-    print(f'Temperatura máxima: {maxima} {simbolo}')
-    print(f'Temperatura mínima: {minima} {simbolo}')
-    print(f"Humedad: {humedad} %")
-    print(f"Descripción: {descripcion}")
+    print(texts["temp_actual"] + f"{ciudad}: {temp} {simbolo}")
+    print(texts["temp_maxima"] + f"{maxima} {simbolo}")
+    print(texts["temp_minima"]+f"{minima} {simbolo}")
+    print(texts["humedad"]+f"{humedad} %")
+    print(texts["descripcion"]+f"{descripcion}")
     print("-----------------------------")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual)
- 
-def solicitar_clima_extendido(ciudad, API_KEY, units):
-    url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang=es"
+    guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual,texts)
+        
+def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
+    url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
     res_forecast = requests.get(url_forecast)
     return res_forecast.json()
 
-def mostrar_pronostico_extendido(data_forecast, simbolo):
-    print("-------Pronóstico Extendido a 5 Días-------")
+def mostrar_pronostico_extendido(data_forecast, simbolo,ciudad,texts):
+    
+    print(texts["pronostico_5"])
     for forecast in data_forecast['list']:
         fecha = forecast['dt_txt']
         temp_forecast = forecast['main']['temp']
         hum_forecast = forecast["main"]["humidity"]
         desc_forecast = forecast['weather'][0]['description']
-        print(f"{fecha}: {temp_forecast} {simbolo}, Humedad: {hum_forecast} %, {desc_forecast}")
+        print((f"{fecha}: {temp_forecast} {simbolo} ")+ texts["humedad"] + (f"{hum_forecast} %, {desc_forecast}"))
     print("------------------------------------------")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial_extendido(data_forecast, simbolo,fecha_actual)
-   
-
-def historial():
+    guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts)
+    
+def historial(texts):
     while True:
-            print("------HISTORIAL------")
-            historial = input("a- Diario\nb- Extendido\nc- Volver\n")
-            if historial.lower() == "a":
-               mostrar_historial()
-            elif historial.lower() =="b":
-                mostrar_historial_extendido()
-            elif historial.lower() == "c":
-                break
-            else:
-                print("---------------------------ERROR------------------------------")
-                print("Opción no válida. Por favor, seleccione nuevamente a - b - c .")
-                print("--------------------------------------------------------------")
+        limpiar_consola()
+        print(texts["historial"])
+        historial = input(texts["opciones_historial"])
+        if historial.lower() == "a":
+            mostrar_historial(texts)
+        elif historial.lower() =="b":
+            mostrar_historial_extendido(texts)
+        elif historial.lower() == "c":
+            break
+        else:
+            print("---------------------------ERROR------------------------------")
+            print(texts["error_historial"])
+            print("--------------------------------------------------------------")
 
-def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual):
-     with open("historial_diario.txt", "a") as file:
+def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo, fecha_actual, texts):
+    with open("historial_diario.txt", "a", encoding="utf-8") as file:
          file.write(f"----------------{ciudad}----{fecha_actual}--------------------\n"
-                    f"- Temperatura actual: {temp} {simbolo}, "
-                   f"Máxima: {maxima} {simbolo}, Mínima: {minima} {simbolo}, "
-                   f"Humedad: {humedad}%, Descripción: {descripcion}\n"
-                   f"---------------------------------------------------------------\n")
-
-def guardar_historial_extendido(data_forecast, simbolo,fecha_actual):
-    """Guarda el historial del pronóstico extendido en un archivo de texto."""
-    with open("historial_extendido.txt", "a") as file:  # Agregado para guardar el historial extendido
-        file.write(f"----------------{fecha_actual}----------------\n")
+                    f"{texts['temp_actual']} {temp} {simbolo}, "
+                    f"{texts['temp_maxima']} {maxima} {simbolo}, {texts['temp_minima']} {minima} {simbolo}, "
+                    f"{texts['humedad']}{humedad}%, {texts['descripcion']} {descripcion}\n"
+                    f"---------------------------------------------------------------\n")
+def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts):
+    with open("historial_extendido.txt", "a",encoding="utf-8") as file:  
+        file.write(f"----------------{ciudad}------{fecha_actual}----------------\n")
         for forecast in data_forecast['list']:
             fecha = forecast['dt_txt']
             temp_forecast = forecast['main']['temp']
             hum_forecast = forecast["main"]["humidity"]
             desc_forecast = forecast['weather'][0]['description']
-            file.write(f"{fecha} - Temperatura: {temp_forecast} {simbolo}, "
-                       f"Humedad: {hum_forecast}%, Descripción: {desc_forecast}\n")
+            file.write(f"{fecha} {texts['temp_extendido']} {temp_forecast} {simbolo}, "
+                       f"{texts['humedad']}{hum_forecast}%, {texts['descripcion']} {desc_forecast}\n")
         file.write(f"---------------------------------------------------\n")
             
-def mostrar_historial():
-    try:
-        with open("historial_diario.txt", "r", encoding="latin-1") as archivo:
-            contenido = archivo.read()
-            if contenido:
-                print("Historial de consultas:")
-                print(contenido)
-            else:
-                print("El historial está vacío.")
-    except FileNotFoundError:
-        print("No se ha encontrado el archivo de historial.")
-
-def mostrar_historial_extendido():
-    try:
-        with open("historial_extendido.txt", "r",encoding="latin-1") as archivo:
-            contenido = archivo.read()
-            if contenido:
-                print("Historial de consultas Extendido:")
-                print(contenido)
-            else:
-                print("El historial está vacío.")
-    except FileNotFoundError:
-        print("No se ha encontrado el archivo de historial.")
-
-
-def configuracion(units,simbolo):
+def mostrar_historial(texts):
     while True:
-            print("------CONFIGURACIÓN------")
-            config = input("a- Unidad de medida\nb- Borrar historial Diario\nc- Borrar historial Extendido\nd- Volver\n")
-            if config.lower() == "a":
-                units,simbolo = cambio_unidad(units,simbolo)
-                return units,simbolo
-            elif config.lower() == "b":
+        limpiar_consola()
+        try:
+            with open("historial_diario.txt", "r", encoding="utf-8") as archivo:
+                contenido = archivo.read()
+                if contenido:
+                    print(texts["historial_consultas"])
+                    print(contenido)
+                else:
+                    print(texts["archivo_vacio"])
+        except FileNotFoundError:
+            print(texts["no_archivo"])
+        salir = input(texts["desea_salir"])
+        if salir.lower() == "si" or salir.lower() == "yes":
+            break
+        else: continue
+
+def mostrar_historial_extendido(texts):
+    while True:
+        limpiar_consola()
+        try:
+            with open("historial_extendido.txt", "r",encoding="utf-8") as archivo:
+                contenido = archivo.read()
+                if contenido:
+                    print(texts["historial_consultas_extendido"])
+                    print(contenido)
+                else:
+                    print(texts["archivo_vacio"])
+        except FileNotFoundError:
+            print(texts["no_archivo"])
+        salir = input(texts["desea_salir"])
+        if salir.lower() == "si" or salir.lower() == "yes":
+            break
+        else: continue
+
+
+def configuracion(units,simbolo,texts,language_code):
+    while True:
+        limpiar_consola()
+        print(texts["configuracion"])
+        config = input(texts["opciones_configuracion"])
+        if config.lower() == "a":
+            units,simbolo = cambio_unidad(units,simbolo,texts)
+        elif config.lower() == "b":
+            limpiar_consola()
+            print(texts["idiomas"])
+            idioma = input(texts["opciones_idiomas"]+"\n")
+            if idioma == "a":
+                language_code ="es"
+                break
+            elif idioma == "b":
+                language_code = "en"
+                break
+            else:print(texts["error_ciudad"])
+           
+        elif config.lower() == "c":
+            limpiar_consola()
+            seguro = input(texts["seguro_historial"])
+            if seguro.lower() == "si" or  seguro.lower() == "yes":
                 with open("historial_diario.txt", "w") as archivo:
                     pass
-                print("Historial diario borrado correctamente.")
-            elif config.lower() == "c":
+        elif config.lower() == "d":
+            limpiar_consola()
+            seguro = input(texts["seguro_extendido"])
+            if seguro.lower() == "si" or  seguro.lower() == "yes":
                 with open("historial_extendido.txt", "w") as archivo:
                     pass
-                print("Historial extendido borrado correctamente.")
-            elif config.lower() == "d":
-                return units,simbolo
-            else: 
-                print("---------------------------ERROR--------------------------")
-                print("Opción no válida. Por favor, seleccione nuevamente a - b .")
-                print("----------------------------------------------------------")
+        elif config.lower() == "e":
+            break
+        else: 
+            print("---------------------------ERROR--------------------------")
+            print(texts["error_configuracion"])
+            print("----------------------------------------------------------")
+    return {"unidades":(units,simbolo),"lenguaje":language_code}
+
+def limpiar_consola():
+    if os.name == 'nt': 
+        os.system('cls')
+    else:  
+        os.system('clear')
