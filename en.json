@@ -1,0 +1,27 @@
+{
+    "selec_unidad": "Temperature unit (C for Celsius, F for Fahrenheit): ",
+    "menu": "-----------MENU-----------\n 1- Current forecast \n 2- Extended forecast \n 3- Query history\n 4- Settings \n 5- Exit ",
+    "entrada_no_validad": "Invalid input. Please try again.",
+    "seleccion_1_5": "Select an option (1-5):",
+    "otra_consulta": "Would you like to make another query? (YES/NO)",
+    "seguro_salir": "Are you sure you want to exit? (y/n): ",
+    "saliendo": "Exiting...",
+    "regresar_menu": "Returning to the menu...",
+    "opcion_no": "Invalid option. Please select again between 1 and 5.",
+    "medidas": "------Measures------",
+    "actual": "Current: ",
+    "opciones_medidas": "a- Celsius\nb- Fahrenheit\nc- Back\n",
+    "error_medidas": "Invalid option. Please select again a - b - c.",
+    "ingrese_ciudad": "Enter a city: ",
+    "error_ciudad": "Invalid input. Please try again.",
+    "pronostico_5": "-------5-Day Extended Forecast-------",
+    "historial": "------HISTORY------",
+    "opciones_historial": "a- Daily\nb- Extended\nc- Back\n",
+    "error_historial": "Invalid option. Please select again a - b - c.",
+    "configuracion": "------SETTINGS------",
+    "opciones_configuracion": "a- Change measurement unit\nb- Change language\nc- Delete Daily history\nd- Delete Extended history\ne- Back\n",
+    "seguro_historial": "Are you sure you want to delete the history? (YES/NO)",
+    "seguro_extendido": "Are you sure you want to delete the extended history? (YES/NO)",
+    "error_configuracion": "Invalid option. Please select again a - b."
+  }
+  

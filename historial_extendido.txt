@@ -1,0 +1,126 @@
+----------------Mendoza------2024-11-06 22:49:13----------------
+2024-11-07 03:00:00 - Temperatura: 72.93 °F, Humedad: 23%, Descripción: cielo claro
+2024-11-07 06:00:00 - Temperatura: 69.93 °F, Humedad: 28%, Descripción: cielo claro
+2024-11-07 09:00:00 - Temperatura: 64.89 °F, Humedad: 35%, Descripción: algo de nubes
+2024-11-07 12:00:00 - Temperatura: 65.79 °F, Humedad: 35%, Descripción: nubes dispersas
+2024-11-07 15:00:00 - Temperatura: 72.01 °F, Humedad: 31%, Descripción: algo de nubes
+2024-11-07 18:00:00 - Temperatura: 78.35 °F, Humedad: 30%, Descripción: cielo claro
+2024-11-07 21:00:00 - Temperatura: 78.3 °F, Humedad: 34%, Descripción: algo de nubes
+2024-11-08 00:00:00 - Temperatura: 72.88 °F, Humedad: 43%, Descripción: nubes dispersas
+2024-11-08 03:00:00 - Temperatura: 69.93 °F, Humedad: 49%, Descripción: algo de nubes
+2024-11-08 06:00:00 - Temperatura: 68.4 °F, Humedad: 54%, Descripción: nubes dispersas
+2024-11-08 09:00:00 - Temperatura: 65.71 °F, Humedad: 61%, Descripción: nubes
+2024-11-08 12:00:00 - Temperatura: 70.3 °F, Humedad: 57%, Descripción: muy nuboso
+2024-11-08 15:00:00 - Temperatura: 78.15 °F, Humedad: 46%, Descripción: nubes dispersas
+2024-11-08 18:00:00 - Temperatura: 84.18 °F, Humedad: 32%, Descripción: algo de nubes
+2024-11-08 21:00:00 - Temperatura: 85.64 °F, Humedad: 30%, Descripción: algo de nubes
+2024-11-09 00:00:00 - Temperatura: 80.26 °F, Humedad: 36%, Descripción: algo de nubes
+2024-11-09 03:00:00 - Temperatura: 76.5 °F, Humedad: 51%, Descripción: algo de nubes
+2024-11-09 06:00:00 - Temperatura: 72.37 °F, Humedad: 62%, Descripción: nubes dispersas
+2024-11-09 09:00:00 - Temperatura: 69.55 °F, Humedad: 71%, Descripción: cielo claro
+2024-11-09 12:00:00 - Temperatura: 75.47 °F, Humedad: 57%, Descripción: cielo claro
+2024-11-09 15:00:00 - Temperatura: 84.38 °F, Humedad: 41%, Descripción: cielo claro
+2024-11-09 18:00:00 - Temperatura: 92.03 °F, Humedad: 28%, Descripción: cielo claro
+2024-11-09 21:00:00 - Temperatura: 91.87 °F, Humedad: 26%, Descripción: nubes dispersas
+2024-11-10 00:00:00 - Temperatura: 84.63 °F, Humedad: 37%, Descripción: lluvia ligera
+2024-11-10 03:00:00 - Temperatura: 78.22 °F, Humedad: 51%, Descripción: lluvia ligera
+2024-11-10 06:00:00 - Temperatura: 69.55 °F, Humedad: 69%, Descripción: lluvia ligera
+2024-11-10 09:00:00 - Temperatura: 67.95 °F, Humedad: 73%, Descripción: algo de nubes
+2024-11-10 12:00:00 - Temperatura: 70.27 °F, Humedad: 60%, Descripción: nubes dispersas
+2024-11-10 15:00:00 - Temperatura: 78.62 °F, Humedad: 38%, Descripción: algo de nubes
+2024-11-10 18:00:00 - Temperatura: 85.51 °F, Humedad: 28%, Descripción: cielo claro
+2024-11-10 21:00:00 - Temperatura: 82.72 °F, Humedad: 35%, Descripción: lluvia ligera
+2024-11-11 00:00:00 - Temperatura: 76.42 °F, Humedad: 47%, Descripción: lluvia ligera
+2024-11-11 03:00:00 - Temperatura: 72.88 °F, Humedad: 59%, Descripción: lluvia ligera
+2024-11-11 06:00:00 - Temperatura: 68.9 °F, Humedad: 65%, Descripción: lluvia ligera
+2024-11-11 09:00:00 - Temperatura: 66.9 °F, Humedad: 67%, Descripción: cielo claro
+2024-11-11 12:00:00 - Temperatura: 71.71 °F, Humedad: 54%, Descripción: cielo claro
+2024-11-11 15:00:00 - Temperatura: 77.74 °F, Humedad: 40%, Descripción: cielo claro
+2024-11-11 18:00:00 - Temperatura: 73.8 °F, Humedad: 47%, Descripción: nubes dispersas
+2024-11-11 21:00:00 - Temperatura: 74.25 °F, Humedad: 34%, Descripción: nubes dispersas
+2024-11-12 00:00:00 - Temperatura: 64.92 °F, Humedad: 35%, Descripción: nubes dispersas
+---------------------------------------------------
+----------------Mendoza------2024-11-06 22:50:03----------------
+2024-11-07 03:00:00 - Temperatura: 22.74 °C, Humedad: 23%, Descripción: cielo claro
+2024-11-07 06:00:00 - Temperatura: 21.07 °C, Humedad: 28%, Descripción: cielo claro
+2024-11-07 09:00:00 - Temperatura: 18.27 °C, Humedad: 35%, Descripción: algo de nubes
+2024-11-07 12:00:00 - Temperatura: 18.77 °C, Humedad: 35%, Descripción: nubes dispersas
+2024-11-07 15:00:00 - Temperatura: 22.23 °C, Humedad: 31%, Descripción: algo de nubes
+2024-11-07 18:00:00 - Temperatura: 25.75 °C, Humedad: 30%, Descripción: cielo claro
+2024-11-07 21:00:00 - Temperatura: 25.72 °C, Humedad: 34%, Descripción: algo de nubes
+2024-11-08 00:00:00 - Temperatura: 22.71 °C, Humedad: 43%, Descripción: nubes dispersas
+2024-11-08 03:00:00 - Temperatura: 21.07 °C, Humedad: 49%, Descripción: algo de nubes
+2024-11-08 06:00:00 - Temperatura: 20.22 °C, Humedad: 54%, Descripción: nubes dispersas
+2024-11-08 09:00:00 - Temperatura: 18.73 °C, Humedad: 61%, Descripción: nubes
+2024-11-08 12:00:00 - Temperatura: 21.28 °C, Humedad: 57%, Descripción: muy nuboso
+2024-11-08 15:00:00 - Temperatura: 25.64 °C, Humedad: 46%, Descripción: nubes dispersas
+2024-11-08 18:00:00 - Temperatura: 28.99 °C, Humedad: 32%, Descripción: algo de nubes
+2024-11-08 21:00:00 - Temperatura: 29.8 °C, Humedad: 30%, Descripción: algo de nubes
+2024-11-09 00:00:00 - Temperatura: 26.81 °C, Humedad: 36%, Descripción: algo de nubes
+2024-11-09 03:00:00 - Temperatura: 24.72 °C, Humedad: 51%, Descripción: algo de nubes
+2024-11-09 06:00:00 - Temperatura: 22.43 °C, Humedad: 62%, Descripción: nubes dispersas
+2024-11-09 09:00:00 - Temperatura: 20.86 °C, Humedad: 71%, Descripción: cielo claro
+2024-11-09 12:00:00 - Temperatura: 24.15 °C, Humedad: 57%, Descripción: cielo claro
+2024-11-09 15:00:00 - Temperatura: 29.1 °C, Humedad: 41%, Descripción: cielo claro
+2024-11-09 18:00:00 - Temperatura: 33.35 °C, Humedad: 28%, Descripción: cielo claro
+2024-11-09 21:00:00 - Temperatura: 33.26 °C, Humedad: 26%, Descripción: nubes dispersas
+2024-11-10 00:00:00 - Temperatura: 29.24 °C, Humedad: 37%, Descripción: lluvia ligera
+2024-11-10 03:00:00 - Temperatura: 25.68 °C, Humedad: 51%, Descripción: lluvia ligera
+2024-11-10 06:00:00 - Temperatura: 20.86 °C, Humedad: 69%, Descripción: lluvia ligera
+2024-11-10 09:00:00 - Temperatura: 19.97 °C, Humedad: 73%, Descripción: algo de nubes
+2024-11-10 12:00:00 - Temperatura: 21.26 °C, Humedad: 60%, Descripción: nubes dispersas
+2024-11-10 15:00:00 - Temperatura: 25.9 °C, Humedad: 38%, Descripción: algo de nubes
+2024-11-10 18:00:00 - Temperatura: 29.73 °C, Humedad: 28%, Descripción: cielo claro
+2024-11-10 21:00:00 - Temperatura: 28.18 °C, Humedad: 35%, Descripción: lluvia ligera
+2024-11-11 00:00:00 - Temperatura: 24.68 °C, Humedad: 47%, Descripción: lluvia ligera
+2024-11-11 03:00:00 - Temperatura: 22.71 °C, Humedad: 59%, Descripción: lluvia ligera
+2024-11-11 06:00:00 - Temperatura: 20.5 °C, Humedad: 65%, Descripción: lluvia ligera
+2024-11-11 09:00:00 - Temperatura: 19.39 °C, Humedad: 67%, Descripción: cielo claro
+2024-11-11 12:00:00 - Temperatura: 22.06 °C, Humedad: 54%, Descripción: cielo claro
+2024-11-11 15:00:00 - Temperatura: 25.41 °C, Humedad: 40%, Descripción: cielo claro
+2024-11-11 18:00:00 - Temperatura: 23.22 °C, Humedad: 47%, Descripción: nubes dispersas
+2024-11-11 21:00:00 - Temperatura: 23.47 °C, Humedad: 34%, Descripción: nubes dispersas
+2024-11-12 00:00:00 - Temperatura: 18.29 °C, Humedad: 35%, Descripción: nubes dispersas
+---------------------------------------------------
+----------------Mendoza------2024-11-06 22:51:34----------------
+2024-11-07 03:00:00 - Temperatura: 22.74 °C, Humedad: 23%, Descripción: cielo claro
+2024-11-07 06:00:00 - Temperatura: 21.07 °C, Humedad: 28%, Descripción: cielo claro
+2024-11-07 09:00:00 - Temperatura: 18.27 °C, Humedad: 35%, Descripción: algo de nubes
+2024-11-07 12:00:00 - Temperatura: 18.77 °C, Humedad: 35%, Descripción: nubes dispersas
+2024-11-07 15:00:00 - Temperatura: 22.23 °C, Humedad: 31%, Descripción: algo de nubes
+2024-11-07 18:00:00 - Temperatura: 25.75 °C, Humedad: 30%, Descripción: cielo claro
+2024-11-07 21:00:00 - Temperatura: 25.72 °C, Humedad: 34%, Descripción: algo de nubes
+2024-11-08 00:00:00 - Temperatura: 22.71 °C, Humedad: 43%, Descripción: nubes dispersas
+2024-11-08 03:00:00 - Temperatura: 21.07 °C, Humedad: 49%, Descripción: algo de nubes
+2024-11-08 06:00:00 - Temperatura: 20.22 °C, Humedad: 54%, Descripción: nubes dispersas
+2024-11-08 09:00:00 - Temperatura: 18.73 °C, Humedad: 61%, Descripción: nubes
+2024-11-08 12:00:00 - Temperatura: 21.28 °C, Humedad: 57%, Descripción: muy nuboso
+2024-11-08 15:00:00 - Temperatura: 25.64 °C, Humedad: 46%, Descripción: nubes dispersas
+2024-11-08 18:00:00 - Temperatura: 28.99 °C, Humedad: 32%, Descripción: algo de nubes
+2024-11-08 21:00:00 - Temperatura: 29.8 °C, Humedad: 30%, Descripción: algo de nubes
+2024-11-09 00:00:00 - Temperatura: 26.81 °C, Humedad: 36%, Descripción: algo de nubes
+2024-11-09 03:00:00 - Temperatura: 24.72 °C, Humedad: 51%, Descripción: algo de nubes
+2024-11-09 06:00:00 - Temperatura: 22.43 °C, Humedad: 62%, Descripción: nubes dispersas
+2024-11-09 09:00:00 - Temperatura: 20.86 °C, Humedad: 71%, Descripción: cielo claro
+2024-11-09 12:00:00 - Temperatura: 24.15 °C, Humedad: 57%, Descripción: cielo claro
+2024-11-09 15:00:00 - Temperatura: 29.1 °C, Humedad: 41%, Descripción: cielo claro
+2024-11-09 18:00:00 - Temperatura: 33.35 °C, Humedad: 28%, Descripción: cielo claro
+2024-11-09 21:00:00 - Temperatura: 33.26 °C, Humedad: 26%, Descripción: nubes dispersas
+2024-11-10 00:00:00 - Temperatura: 29.24 °C, Humedad: 37%, Descripción: lluvia ligera
+2024-11-10 03:00:00 - Temperatura: 25.68 °C, Humedad: 51%, Descripción: lluvia ligera
+2024-11-10 06:00:00 - Temperatura: 20.86 °C, Humedad: 69%, Descripción: lluvia ligera
+2024-11-10 09:00:00 - Temperatura: 19.97 °C, Humedad: 73%, Descripción: algo de nubes
+2024-11-10 12:00:00 - Temperatura: 21.26 °C, Humedad: 60%, Descripción: nubes dispersas
+2024-11-10 15:00:00 - Temperatura: 25.9 °C, Humedad: 38%, Descripción: algo de nubes
+2024-11-10 18:00:00 - Temperatura: 29.73 °C, Humedad: 28%, Descripción: cielo claro
+2024-11-10 21:00:00 - Temperatura: 28.18 °C, Humedad: 35%, Descripción: lluvia ligera
+2024-11-11 00:00:00 - Temperatura: 24.68 °C, Humedad: 47%, Descripción: lluvia ligera
+2024-11-11 03:00:00 - Temperatura: 22.71 °C, Humedad: 59%, Descripción: lluvia ligera
+2024-11-11 06:00:00 - Temperatura: 20.5 °C, Humedad: 65%, Descripción: lluvia ligera
+2024-11-11 09:00:00 - Temperatura: 19.39 °C, Humedad: 67%, Descripción: cielo claro
+2024-11-11 12:00:00 - Temperatura: 22.06 °C, Humedad: 54%, Descripción: cielo claro
+2024-11-11 15:00:00 - Temperatura: 25.41 °C, Humedad: 40%, Descripción: cielo claro
+2024-11-11 18:00:00 - Temperatura: 23.22 °C, Humedad: 47%, Descripción: nubes dispersas
+2024-11-11 21:00:00 - Temperatura: 23.47 °C, Humedad: 34%, Descripción: nubes dispersas
+2024-11-12 00:00:00 - Temperatura: 18.29 °C, Humedad: 35%, Descripción: nubes dispersas
+---------------------------------------------------
