@@ -12,19 +12,19 @@
      ```bash
      git clone https://github.com/barrera-miguel/Compumundohipermegared.git
      ```
-3. Modificar el archivo app.py para incluir tu clave API
-    - API_KEY en línea 19:
+3. Crear y guardar en directorio clonado el archivo .env para incluir tu clave API
+    - Contenido:
      ```bash
-     API_KEY = "tu_api_key_aquí"
+     API_KEY = tu_api_key
      ```
 4. Ejecutar Docker en terminal
-   - Construir la imagen de Docker:
+   - Construir la imagen de Docker compose:
      ```bash
-     docker build -t nombre_imagen .
+     docker compose build
      ```
    - Ejecutar el contenedor:
      ```bash
-     docker run -it --rm nombre_imagen
+     docker compose run app
      ```
 
 ## Funcionamiento de la App

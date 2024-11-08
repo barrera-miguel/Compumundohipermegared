@@ -34,7 +34,8 @@ while True:
         while salir !="no":
             
             ciudad = ingresar_ciudad(texts)
-            mostrar_clima_actual(solicitar_clima(ciudad, API_KEY, units,language_code), ciudad, simbolo,texts)
+            limpiar_consola()
+            mostrar_clima_actual(solicitar_clima(ciudad, API_KEY, units,language_code,texts), ciudad, simbolo,texts)
             while True:
                 salir = input(texts["otra_consulta"])
                 if salir.lower()=="no":
@@ -50,8 +51,10 @@ while True:
         limpiar_consola()
         salir_extendido="yes"
         while salir_extendido != "no":
+
             ciudad = ingresar_ciudad(texts)
-            mostrar_pronostico_extendido(solicitar_clima_extendido(ciudad, API_KEY, units,language_code), simbolo,ciudad,texts)
+            limpiar_consola()
+            mostrar_pronostico_extendido(solicitar_clima_extendido(ciudad, API_KEY, units,language_code,texts), simbolo,ciudad,texts)
             while True:
                 salir_extendido = input(texts["otra_consulta"])
                 if salir_extendido.lower()=="no":

@@ -14,7 +14,7 @@
   "error_medidas":"Opción no válida. Por favor, seleccione nuevamente a - b - c .",
   "ingrese_ciudad":"Ingrese una ciudad: ",
   "error_ciudad":"Entrada no válida. Intente nuevamente",
-  "pronostico_5":"-------Pronóstico Extendido a 5 Días-------",
+  "pronostico_5":"-------Pronóstico Extendido a 5 Días ",
   "historial":"------HISTORIAL------",
   "opciones_historial":"a- Diario\nb- Extendido\nc- Volver\n",
   "error_historial":"Opción no válida. Por favor, seleccione nuevamente a - b - c .",
@@ -35,6 +35,18 @@
   "historial_consultas_extendido":"Historial de consultas Extendido:",
   "idiomas":"------------IDIOMAS---------",
   "opciones_idiomas":"a- Español \nb- English",
-  "temp_extendido":"- Temperatura:"
+  "temp_extendido":"- Temperatura:",
+  "error_1":"Error HTTP:",
+  "error_2":"- Código de estado:",
+  "error_3":"Error de conexión. Por favor, revisa tu conexión a internet.",
+  "error_4":"La solicitud a la API ha tardado demasiado en responder.",
+  "error_5":"Ocurrió un error inesperado: ",
+  "error_6":"No se pudo obtener el clima para",
+  "error_7":"Por favor, inténtalo nuevamente.",
+  "error_8":"Los datos recibidos de la API no son válidos para",
+  "error_9":"Detalles del error:",
+  "error_10":"No se pudo obtener información detallada",
+  "error_11":"Los datos de pronóstico recibidos no son válidos para",
+  "error_12":"Error en los datos de la API: falta la clave"
 }
 

@@ -142,47 +142,110 @@ def ingresar_ciudad(texts):
         else:
             return ciudad
 
-def solicitar_clima(ciudad, API_KEY, units,lenguaje):
+def solicitar_clima(ciudad, API_KEY, units, lenguaje,texts):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
-    res = requests.get(url)
-    limpiar_consola()
-    return res.json()
+    
+    try:
+        res = requests.get(url, timeout=10)  
+        res.raise_for_status() 
+        limpiar_consola()
+        return res.json()
+    except requests.exceptions.HTTPError as e:
+        print(f"{texts['error_1']} {e} {texts['error_2']} {res.status_code}")
+    except requests.exceptions.ConnectionError:
+        print(texts['error_3'])
+    except requests.exceptions.Timeout:
+        print(texts['error_4'])
+    except requests.exceptions.RequestException as e:
+        print(f"{texts['error_5']}{e}")
+    return None  
+from datetime import datetime
 
-def mostrar_clima_actual(data, ciudad, simbolo,texts):
-    temp = data["main"]["temp"]
-    descripcion = data["weather"] [0] ["description"]
-    minima = data["main"]["temp_min"]
-    maxima = data["main"]["temp_max"]
-    humedad = data["main"]["humidity"]
-    print("-----------------------------")
-    print(texts["temp_actual"] + f"{ciudad}: {temp} {simbolo}")
-    print(texts["temp_maxima"] + f"{maxima} {simbolo}")
-    print(texts["temp_minima"]+f"{minima} {simbolo}")
-    print(texts["humedad"]+f"{humedad} %")
-    print(texts["descripcion"]+f"{descripcion}")
-    print("-----------------------------")
-    fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo,fecha_actual,texts)
+def mostrar_clima_actual(data, ciudad, simbolo, texts):
+    if data is None:
+        print("----------------------------------------------------------------------------")
+        print(f"{texts['error_6']} {ciudad}. {texts['error_7']}")
+        print("----------------------------------------------------------------------------")
+        return
+    elif "main" not in data or "weather" not in data:
+        print(f"{texts['error_8']} {ciudad}.")
+        print(f"{texts['error_9']} {data.get('message', texts['error_10'])}")
+        return
+    
+    try:
+        temp = data["main"]["temp"]
+        descripcion = data["weather"][0]["description"]
+        minima = data["main"]["temp_min"]
+        maxima = data["main"]["temp_max"]
+        humedad = data["main"]["humidity"]
+
+        print("-----------------------------")
+        print(texts["temp_actual"] + f"{ciudad}: {temp} {simbolo}")
+        print(texts["temp_maxima"] + f"{maxima} {simbolo}")
+        print(texts["temp_minima"] + f"{minima} {simbolo}")
+        print(texts["humedad"] + f"{humedad} %")
+        print(texts["descripcion"] + f"{descripcion}")
+        print("-----------------------------")
         
-def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
+       
+        fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+      
+        guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbolo, fecha_actual, texts)
+    
+    except KeyError as e:
+        print(f"{texts['error_12']} {e}.")
+
+
+        
+def solicitar_clima_extendido(ciudad, API_KEY, units, lenguaje,texts):
     url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
-    res_forecast = requests.get(url_forecast)
-    return res_forecast.json()
+    
+    try:
+        res_forecast = requests.get(url_forecast, timeout=10)
+        res_forecast.raise_for_status()  
+        return res_forecast.json()
+    except requests.exceptions.HTTPError as e:
+        print(f"{texts['error_1']} {e} {texts['error_2']}  {res_forecast.status_code}")
+    except requests.exceptions.ConnectionError:
+        print(texts['error_3'])
+    except requests.exceptions.Timeout:
+        print(texts['error_4'])
+    except requests.exceptions.RequestException as e:
+        print(f"{texts['error_5']}{e}")
+    return None  
 
 def mostrar_pronostico_extendido(data_forecast, simbolo, ciudad, texts):
-    print(texts["pronostico_5"])
-    count = 0
-    for forecast in data_forecast['list']:
-        if count % 4 == 0: 
-            fecha = forecast['dt_txt']
-            temp_forecast = forecast['main']['temp']
-            hum_forecast = forecast["main"]["humidity"]
-            desc_forecast = forecast['weather'][0]['description']
-            print((f"{fecha}: {temp_forecast} {simbolo} ") + texts["humedad"] + (f"{hum_forecast} %, {desc_forecast}"))
-        count += 1
-    print("------------------------------------------")
-    fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial_extendido(data_forecast, simbolo, fecha_actual, ciudad, texts)
+    
+    if data_forecast is None:
+        print("---------------------------------------------------------------------------------")
+        print(f"{texts['error_6']} {ciudad}. {texts['error_7']}")
+        print("---------------------------------------------------------------------------------")
+        return
+    elif "list" not in data_forecast:
+        print(f"{texts['error_11']} {ciudad}.")
+        print(f"{texts['error_9']} {data.get('message', texts['error_10'])}")
+        return
+    
+    try:
+        print(texts["pronostico_5"]+f"{ciudad}-------")
+        count = 0
+        for forecast in data_forecast['list']:
+            if count % 4 == 0:
+                fecha = forecast['dt_txt']
+                temp_forecast = forecast['main']['temp']
+                hum_forecast = forecast["main"]["humidity"]
+                desc_forecast = forecast['weather'][0]['description']
+                print((f"{fecha}: {temp_forecast} {simbolo} ") + texts["humedad"] + (f"{hum_forecast} %, {desc_forecast}"))
+            count += 1
+        print("------------------------------------------")
+        
+        # Guarda en el historial
+        fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        guardar_historial_extendido(data_forecast, simbolo, fecha_actual, ciudad, texts)
+    
+    except KeyError as e:
+        print(f"{texts['error_12']} {e}.")
 
     
 def historial(texts):
@@ -208,17 +271,21 @@ def guardar_historial(ciudad, temp, minima, maxima, humedad, descripcion, simbol
                     f"{texts['temp_maxima']} {maxima} {simbolo}, {texts['temp_minima']} {minima} {simbolo}, "
                     f"{texts['humedad']}{humedad}%, {texts['descripcion']} {descripcion}\n"
                     f"---------------------------------------------------------------\n")
-def guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts):
-    with open("historial_extendido.txt", "a",encoding="utf-8") as file:  
+def guardar_historial_extendido(data_forecast, simbolo, fecha_actual, ciudad, texts):
+    with open("historial_extendido.txt", "a", encoding="utf-8") as file:
         file.write(f"----------------{ciudad}------{fecha_actual}----------------\n")
+        count = 0
         for forecast in data_forecast['list']:
-            fecha = forecast['dt_txt']
-            temp_forecast = forecast['main']['temp']
-            hum_forecast = forecast["main"]["humidity"]
-            desc_forecast = forecast['weather'][0]['description']
-            file.write(f"{fecha} {texts['temp_extendido']} {temp_forecast} {simbolo}, "
-                       f"{texts['humedad']}{hum_forecast}%, {texts['descripcion']} {desc_forecast}\n")
+            if count % 4 == 0:  # Solo guarda cada 4 elementos
+                fecha = forecast['dt_txt']
+                temp_forecast = forecast['main']['temp']
+                hum_forecast = forecast["main"]["humidity"]
+                desc_forecast = forecast['weather'][0]['description']
+                file.write(f"{fecha} {texts['temp_extendido']} {temp_forecast} {simbolo}, "
+                           f"{texts['humedad']}{hum_forecast}%, {texts['descripcion']} {desc_forecast}\n")
+            count += 1
         file.write(f"---------------------------------------------------\n")
+
             
 def mostrar_historial(texts):
     while True:
