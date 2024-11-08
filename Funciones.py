@@ -100,16 +100,26 @@ def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
 
 def mostrar_pronostico_extendido(data_forecast, simbolo,ciudad,texts):
     
+   def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
+    url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
+    res_forecast = requests.get(url_forecast)
+    return res_forecast.json()
+
+def mostrar_pronostico_extendido(data_forecast, simbolo, ciudad, texts):
     print(texts["pronostico_5"])
+    count = 0
     for forecast in data_forecast['list']:
-        fecha = forecast['dt_txt']
-        temp_forecast = forecast['main']['temp']
-        hum_forecast = forecast["main"]["humidity"]
-        desc_forecast = forecast['weather'][0]['description']
-        print((f"{fecha}: {temp_forecast} {simbolo} ")+ texts["humedad"] + (f"{hum_forecast} %, {desc_forecast}"))
+        if count % 4 == 0: 
+            fecha = forecast['dt_txt']
+            temp_forecast = forecast['main']['temp']
+            hum_forecast = forecast["main"]["humidity"]
+            desc_forecast = forecast['weather'][0]['description']
+            print((f"{fecha}: {temp_forecast} {simbolo} ") + texts["humedad"] + (f"{hum_forecast} %, {desc_forecast}"))
+        count += 1
     print("------------------------------------------")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    guardar_historial_extendido(data_forecast, simbolo,fecha_actual,ciudad,texts)
+    guardar_historial_extendido(data_forecast, simbolo, fecha_actual, ciudad, texts)
+
     
 def historial(texts):
     while True:
