@@ -13,7 +13,7 @@
   "opciones_medidas":"a- Celcius\nb- Fahrenheit\nc- Volver\n",
   "error_medidas":"Opción no válida. Por favor, seleccione nuevamente a - b - c .",
   "ingrese_ciudad":"Ingrese una ciudad: ",
-  "error_ciudad":"[bold red]⚠️  Entrada no válida. Intente nuevamente.[/bold red]",
+  "error_ciudad":"Entrada no válida. Intente nuevamente",
   "pronostico_5":"-------Pronóstico Extendido a 5 Días-------",
   "historial":"------HISTORIAL------",
   "opciones_historial":"a- Diario\nb- Extendido\nc- Volver\n",

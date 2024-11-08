@@ -135,6 +135,7 @@ def ingresar_ciudad(texts):
     while True:
         ciudad = input(texts["ingrese_ciudad"]).strip().title()
         if ciudad.isdigit() or len(ciudad) == 0:
+            limpiar_consola()
             print("-----------------------------")
             print(texts["error_ciudad"])
             print("-----------------------------")
@@ -144,6 +145,7 @@ def ingresar_ciudad(texts):
 def solicitar_clima(ciudad, API_KEY, units,lenguaje):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
     res = requests.get(url)
+    limpiar_consola()
     return res.json()
 
 def mostrar_clima_actual(data, ciudad, simbolo,texts):
