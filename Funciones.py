@@ -40,7 +40,7 @@ def mostrar_portada():
     # Imprimir el panel
     print(portada_panel)
 
-def mostrar_menu():
+def mostrar_menu_es():
     table = Table(show_header=False, box=HEAVY, show_lines=True)
     
     table.add_row("[bold yellow]1[/bold yellow]", "[yellow]Pronóstico actual[/yellow]")
@@ -52,6 +52,19 @@ def mostrar_menu():
     panel = Panel(table, title="MENÚ", title_align="center", border_style="cyan", expand=False)
 
     print(panel)
+
+def mostrar_menu_en():
+    table = Table(show_header=False, box=HEAVY, show_lines=True)
+    
+    table.add_row("[bold yellow]1[/bold yellow]", "[yellow]Current forecast[/yellow]")
+    table.add_row("[bold green]2[/bold green]", "[green]Extended forecast[/green]")
+    table.add_row("[bold blue]3[/bold blue]", "[blue]Query history[/blue]")
+    table.add_row("[bold magenta]4[/bold magenta]", "[magenta]Settings[/magenta]")
+    table.add_row("[bold red]5[/bold red]", "[red]Exit[/red]")
+
+    panel = Panel(table, title="MENU", title_align="center", border_style="cyan", expand=False)
+
+    print(panel)    
 
 def seleccionar_language():
     while True:
