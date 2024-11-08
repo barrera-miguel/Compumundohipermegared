@@ -4,38 +4,107 @@ from dotenv import load_dotenv
 from datetime import datetime
 from idiomas import idioma
 
+from rich import print
+from rich.table import Table
+from rich.panel import Panel
+from rich.prompt import Prompt
+from rich.box import HEAVY
+from rich.progress import Progress
+import time
+
+def barra_progreso():
+    # Crear una barra de progreso
+    with Progress(transient=True) as progress:
+        # Añadir una tarea a la barra de progreso
+        tarea = progress.add_task("[cyan]Iniciando...", total=100)
+
+        # Simulación de avance en la tarea
+        while not progress.finished:
+            # Avanzar la barra
+            progress.update(tarea, advance=5)
+            time.sleep(0.1)  # Simula una operación en progreso
 
 def mostrar_portada():
-    print("-----------------------------")
-    print("--------APP DEL CLIMA--------")
-    print("by Compumundohipermegared")
-    print("-----------------------------")
+    # Crear el contenido de la portada con estilo de color
+    contenido_portada = "[bold cyan]APP DEL CLIMA 🔆[/bold cyan]\n[gray82]by Compumundohipermegared[/gray82]"
+
+    # Crear un panel alrededor del contenido de la portada
+    portada_panel = Panel(
+        contenido_portada,
+        title_align="center",
+        border_style="cyan",
+        padding=(1, 4),  # Añadir algo de espacio alrededor del contenido
+        expand=False
+    )
+
+    # Imprimir el panel
+    print(portada_panel)
+
+def mostrar_menu_es():
+    table = Table(show_header=False, box=HEAVY, show_lines=True)
+    
+    table.add_row("[bold yellow]1[/bold yellow]", "[yellow]Pronóstico actual[/yellow]")
+    table.add_row("[bold green]2[/bold green]", "[green]Pronóstico extendido[/green]")
+    table.add_row("[bold blue]3[/bold blue]", "[blue]Historial de consultas[/blue]")
+    table.add_row("[bold magenta]4[/bold magenta]", "[magenta]Configuración[/magenta]")
+    table.add_row("[bold red]5[/bold red]", "[red]Salir[/red]")
+
+    panel = Panel(table, title="MENÚ", title_align="center", border_style="cyan", expand=False)
+
+    print(panel)
+
+def mostrar_menu_en():
+    table = Table(show_header=False, box=HEAVY, show_lines=True)
+    
+    table.add_row("[bold yellow]1[/bold yellow]", "[yellow]Current forecast[/yellow]")
+    table.add_row("[bold green]2[/bold green]", "[green]Extended forecast[/green]")
+    table.add_row("[bold blue]3[/bold blue]", "[blue]Query history[/blue]")
+    table.add_row("[bold magenta]4[/bold magenta]", "[magenta]Settings[/magenta]")
+    table.add_row("[bold red]5[/bold red]", "[red]Exit[/red]")
+
+    panel = Panel(table, title="MENU", title_align="center", border_style="cyan", expand=False)
+
+    print(panel)    
 
 def seleccionar_language():
     while True:
-        print("")
-        lenguaje  = input("Español = es / English = en : ")
-        if lenguaje.lower() == "es":
+        print()  # Espacio en blanco para separar los mensajes
+
+        # Solicitar el idioma al usuario con un mensaje estilizado
+        print("[cyan]Selecciona el idioma / Select language[/cyan]")
+        lenguaje = Prompt.ask("[cyan]Español = [bold magenta]es[/bold magenta] / English = [bold magenta]en[/bold magenta]").strip().lower()
+        if lenguaje == "es":
             return "es"
-        elif lenguaje.lower() == "en":
+        elif lenguaje == "en":
             return "en"
         else:
-            print("-------------------------------------")
-            print("Caracter invalido / Invalid character")
-            print("-------------------------------------")
+            # Mensaje de error en un panel estilizado
+            error_panel = Panel(
+                "[bold red]⚠️  Entrada no válida / Invalid input[/bold red]",
+                border_style="red",
+                expand=False
+            )
+            limpiar_consola()
+            print(error_panel)
     
 
 def seleccionar_unidad(texts):
     while True:
-        unidad = input(texts['selec_unidad']).strip().lower()
-        if unidad.lower() == 'c':
+        print()
+        unidad = Prompt.ask(texts['selec_unidad']).strip().lower()
+        if unidad == 'c':
             return 'metric', '°C'
-        elif unidad.lower() == 'f':
+        elif unidad == 'f':
             return 'imperial', '°F'
         else:
-            print("-----------------------------")
-            print(texts["entrada_no_validad"])
-            print("-----------------------------")
+            # Mensaje de error estilizado
+            error_panel = Panel(
+                texts['entrada_no_validad'],
+                border_style="red",
+                expand=False
+            )
+            limpiar_consola()
+            print(error_panel)
 
 def unidad_actual(unidad):
     if unidad == "metric":
@@ -66,6 +135,7 @@ def ingresar_ciudad(texts):
     while True:
         ciudad = input(texts["ingrese_ciudad"]).strip().title()
         if ciudad.isdigit() or len(ciudad) == 0:
+            limpiar_consola()
             print("-----------------------------")
             print(texts["error_ciudad"])
             print("-----------------------------")
@@ -75,6 +145,7 @@ def ingresar_ciudad(texts):
 def solicitar_clima(ciudad, API_KEY, units,lenguaje):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
     res = requests.get(url)
+    limpiar_consola()
     return res.json()
 
 def mostrar_clima_actual(data, ciudad, simbolo,texts):

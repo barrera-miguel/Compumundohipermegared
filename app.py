@@ -1,7 +1,7 @@
 
 from dotenv import load_dotenv
-from Funciones import limpiar_consola, mostrar_portada, seleccionar_language,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
-
+from Funciones import limpiar_consola, barra_progreso, mostrar_portada, mostrar_menu_es, mostrar_menu_en, seleccionar_language,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
+from rich.prompt import Prompt
 import os
 
 from idiomas import idioma
@@ -10,16 +10,23 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
+limpiar_consola()
+barra_progreso()
 mostrar_portada()
 language_code = seleccionar_language()
 texts = idioma(language_code)
+limpiar_consola()
 units, simbolo = seleccionar_unidad(texts)
 
 while True:
     
     limpiar_consola()
-    print(texts["menu"])
-    seleccion = input(texts["seleccion_1_5"])
+    if language_code == "es":
+        mostrar_menu_es()
+    else:
+        mostrar_menu_en()
+    # print(texts["menu"])
+    seleccion = Prompt.ask(texts["seleccion_1_5"])
 
     if seleccion == "1":
         limpiar_consola()
