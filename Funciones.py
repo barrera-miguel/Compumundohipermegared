@@ -98,13 +98,6 @@ def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
     res_forecast = requests.get(url_forecast)
     return res_forecast.json()
 
-def mostrar_pronostico_extendido(data_forecast, simbolo,ciudad,texts):
-    
-   def solicitar_clima_extendido(ciudad, API_KEY, units,lenguaje):
-    url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units={units}&lang={lenguaje}"
-    res_forecast = requests.get(url_forecast)
-    return res_forecast.json()
-
 def mostrar_pronostico_extendido(data_forecast, simbolo, ciudad, texts):
     print(texts["pronostico_5"])
     count = 0
