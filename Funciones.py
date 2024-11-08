@@ -9,6 +9,20 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.box import HEAVY
+from rich.progress import Progress
+import time
+
+def barra_progreso():
+    # Crear una barra de progreso
+    with Progress(transient=True) as progress:
+        # Añadir una tarea a la barra de progreso
+        tarea = progress.add_task("[cyan]Iniciando...", total=100)
+
+        # Simulación de avance en la tarea
+        while not progress.finished:
+            # Avanzar la barra
+            progress.update(tarea, advance=5)
+            time.sleep(0.1)  # Simula una operación en progreso
 
 def mostrar_portada():
     # Crear el contenido de la portada con estilo de color
@@ -41,29 +55,43 @@ def mostrar_menu():
 
 def seleccionar_language():
     while True:
-        print("")
-        lenguaje  = input("Español = es / English = en : ")
-        if lenguaje.lower() == "es":
+        print()  # Espacio en blanco para separar los mensajes
+
+        # Solicitar el idioma al usuario con un mensaje estilizado
+        print("[bold cyan]Selecciona el idioma / Select language[/bold cyan]")
+        lenguaje = Prompt.ask("[bold cyan]Español = [bold magenta]es[/bold magenta] / English = [bold magenta]en[/bold magenta]").strip().lower()
+        if lenguaje == "es":
             return "es"
-        elif lenguaje.lower() == "en":
+        elif lenguaje == "en":
             return "en"
         else:
-            print("-------------------------------------")
-            print("Caracter invalido / Invalid character")
-            print("-------------------------------------")
+            # Mensaje de error en un panel estilizado
+            error_panel = Panel(
+                "[bold red]⚠️  Caracter inválido / Invalid character[/bold red]",
+                border_style="red",
+                expand=False
+            )
+            limpiar_consola()
+            print(error_panel)
     
 
 def seleccionar_unidad(texts):
+    limpiar_consola()
     while True:
-        unidad = input(texts['selec_unidad']).strip().lower()
-        if unidad.lower() == 'c':
+        print()
+        unidad = Prompt.ask(texts['selec_unidad']).strip().lower()
+        if unidad == 'c':
             return 'metric', '°C'
-        elif unidad.lower() == 'f':
+        elif unidad == 'f':
             return 'imperial', '°F'
         else:
-            print("-----------------------------")
-            print(texts["entrada_no_validad"])
-            print("-----------------------------")
+            # Mensaje de error estilizado
+            error_panel = Panel(
+                texts['entrada_no_validad'],
+                border_style="red",
+                expand=False
+            )
+            print(error_panel)
 
 def unidad_actual(unidad):
     if unidad == "metric":

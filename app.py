@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from Funciones import limpiar_consola, mostrar_portada, mostrar_menu,  seleccionar_language,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
+from Funciones import limpiar_consola, barra_progreso, mostrar_portada, mostrar_menu,  seleccionar_language,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
 
 import os
 
@@ -9,6 +9,8 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
+limpiar_consola()
+barra_progreso()
 mostrar_portada()
 language_code = seleccionar_language()
 texts = idioma(language_code)

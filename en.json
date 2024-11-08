@@ -1,5 +1,5 @@
 {
-  "selec_unidad": "Temperature unit (C for Celsius, F for Fahrenheit): ",
+  "selec_unidad": "[bold cyan]Temperature unit[/bold cyan] ([bold yellow]C[/bold yellow] for [bold yellow]Celsius[/bold yellow], [bold green]F[/bold green] for [bold green]Fahrenheit[/bold green])",
   "menu": "-----------MENU-----------\n 1- Current forecast \n 2- Extended forecast \n 3- Query history\n 4- Settings \n 5- Exit ",
   "entrada_no_validad": "Invalid input. Please try again",
   "seleccion_1_5": "Select an option (1-5):",

@@ -1,7 +1,7 @@
 {
- "selec_unidad":"Unidad de temperatura (C para Celsius, F para Fahrenheit): ",
+  "selec_unidad":"[bold cyan]Unidad de temperatura[/bold cyan] ([bold yellow]C[/bold yellow] para [bold yellow]Celsius[/bold yellow], [bold green]F[/bold green] para [bold green]Fahrenheit[/bold green])",
   "menu":"-----------MENÚ-----------\n 1- Pronóstico actual \n 2- Pronóstico extendido \n 3- Historial de consultas\n 4- Configuración \n 5- Salir ",
-  "entrada_no_validad":"Entrada no válida. Intente nuevamente",
+  "entrada_no_validad":"[bold red]⚠️  Entrada no válida. Intente nuevamente.[/bold red]",
   "seleccion_1_5":"Seleccione una opción (1-5):" ,
   "otra_consulta":"¿Desea hacer otra consulta? (SI/NO)",
   "seguro_salir":"¿Está seguro de querer salir? (SI/NO): ",
@@ -13,7 +13,7 @@
   "opciones_medidas":"a- Celcius\nb- Fahrenheit\nc- Volver\n",
   "error_medidas":"Opción no válida. Por favor, seleccione nuevamente a - b - c .",
   "ingrese_ciudad":"Ingrese una ciudad: ",
-  "error_ciudad":"Entrada no válida. Intente nuevamente",
+  "error_ciudad":"[bold red]⚠️  Entrada no válida. Intente nuevamente.[/bold red]",
   "pronostico_5":"-------Pronóstico Extendido a 5 Días-------",
   "historial":"------HISTORIAL------",
   "opciones_historial":"a- Diario\nb- Extendido\nc- Volver\n",
