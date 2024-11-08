@@ -14,6 +14,7 @@ barra_progreso()
 mostrar_portada()
 language_code = seleccionar_language()
 texts = idioma(language_code)
+limpiar_consola()
 units, simbolo = seleccionar_unidad(texts)
 
 while True:

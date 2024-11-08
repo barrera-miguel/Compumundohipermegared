@@ -1,5 +1,5 @@
 {
-  "selec_unidad":"[bold cyan]Unidad de temperatura[/bold cyan] ([bold yellow]C[/bold yellow] para [bold yellow]Celsius[/bold yellow], [bold green]F[/bold green] para [bold green]Fahrenheit[/bold green])",
+  "selec_unidad":"[cyan]Unidad de temperatura[/cyan] ([bold yellow]C[/bold yellow] para [yellow]Celsius[/yellow], [bold green]F[/bold green] para [green]Fahrenheit[/green])",
   "menu":"-----------MENÚ-----------\n 1- Pronóstico actual \n 2- Pronóstico extendido \n 3- Historial de consultas\n 4- Configuración \n 5- Salir ",
   "entrada_no_validad":"[bold red]⚠️  Entrada no válida. Intente nuevamente.[/bold red]",
   "seleccion_1_5":"Seleccione una opción (1-5):" ,

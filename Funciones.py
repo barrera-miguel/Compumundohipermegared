@@ -58,8 +58,8 @@ def seleccionar_language():
         print()  # Espacio en blanco para separar los mensajes
 
         # Solicitar el idioma al usuario con un mensaje estilizado
-        print("[bold cyan]Selecciona el idioma / Select language[/bold cyan]")
-        lenguaje = Prompt.ask("[bold cyan]Español = [bold magenta]es[/bold magenta] / English = [bold magenta]en[/bold magenta]").strip().lower()
+        print("[cyan]Selecciona el idioma / Select language[/cyan]")
+        lenguaje = Prompt.ask("[cyan]Español = [bold magenta]es[/bold magenta] / English = [bold magenta]en[/bold magenta]").strip().lower()
         if lenguaje == "es":
             return "es"
         elif lenguaje == "en":
@@ -67,7 +67,7 @@ def seleccionar_language():
         else:
             # Mensaje de error en un panel estilizado
             error_panel = Panel(
-                "[bold red]⚠️  Caracter inválido / Invalid character[/bold red]",
+                "[bold red]⚠️  Entrada no válida / Invalid input[/bold red]",
                 border_style="red",
                 expand=False
             )
@@ -76,7 +76,6 @@ def seleccionar_language():
     
 
 def seleccionar_unidad(texts):
-    limpiar_consola()
     while True:
         print()
         unidad = Prompt.ask(texts['selec_unidad']).strip().lower()
@@ -91,6 +90,7 @@ def seleccionar_unidad(texts):
                 border_style="red",
                 expand=False
             )
+            limpiar_consola()
             print(error_panel)
 
 def unidad_actual(unidad):
