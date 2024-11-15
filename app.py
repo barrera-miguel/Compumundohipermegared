@@ -1,92 +1,93 @@
-import requests
 
-print("-----------------------------")
-print("--------APP DEL CLIMA--------")
-print("by Compumundohipermegared")
-print("-----------------------------")
+from dotenv import load_dotenv
+from Funciones import limpiar_consola, barra_progreso, mostrar_portada, mostrar_menu_es, mostrar_menu_en, seleccionar_language,seleccionar_unidad,ingresar_ciudad,solicitar_clima,mostrar_clima_actual,solicitar_clima_extendido,mostrar_pronostico_extendido,historial,configuracion
+from rich.prompt import Prompt
+import os
+
+from idiomas import idioma
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+
+limpiar_consola()
+barra_progreso()
+mostrar_portada()
+language_code = seleccionar_language()
+texts = idioma(language_code)
+limpiar_consola()
+units, simbolo = seleccionar_unidad(texts)
 
 while True:
-    unidad = input("Elige la unidad (C para Celsius, F para Fahrenheit): ").strip().upper()
-    if unidad == 'F':
-        unidades = "Imperial"  
-    else:
-        unidades = "Metrica"
-        
-        
-    while True:
-        ciudad = input("Ingrese una ciudad: ").title()
-        if ciudad.isdigit() or len(ciudad) == 0:
-            print("-----------------------------")
-            print("Entrada no válida. Intente nuevamente")
-            print("-----------------------------")
-        else:
-            break
     
-    API_KEY = "acá va la api key"
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric&lang=es"
-    res = requests.get(url)
-    data = res.json()
-
-    temp = data["main"]["temp"]
-    descripcion = data["weather"] [0] ["description"]
-    minima = data["main"]["temp_min"]
-    maxima = data["main"]["temp_max"]
-    humedad = data["main"]["humidity"]
-
-    print("-----------------------------")
-    
-    if unidades == "Imperial":
-        temp_actual_c = (temp * 9/5) + 32
-        temp_maxima_c = (maxima * 9/5) + 32
-        temp_minima_c = (minima * 9/5) + 32
-        print(f'Temperatura actual en {ciudad}: {temp_actual_c:.2f} °F')
-        print(f'Temperatura máxima: {temp_maxima_c:.2f} °F')
-        print(f'Temperatura mínima: {temp_minima_c:.2f} °F')
+    limpiar_consola()
+    if language_code == "es":
+        mostrar_menu_es()
     else:
-        print(f'Temperatura actual en {ciudad}: {temp:.2f} °C')
-        print(f'Temperatura máxima: {maxima:.2f} °C')
-        print(f'Temperatura mínima: {minima:.2f} °C')
-    print(f"Humedad: {humedad} %")
-    print(f"Descripción: {descripcion}")
-    print("-----------------------------")
+        mostrar_menu_en()
+    # print(texts["menu"])
+    seleccion = Prompt.ask(texts["seleccion_1_5"])
 
-    while True:
-        opcion_pronostico = input("¿Quiere ver el pronóstico extendido a 5 días? (ingrese 's' para sí o 'n' para no): ").lower()
-        print("-----------------------------")
+    if seleccion == "1":
+        limpiar_consola()
+        salir="yes"
+        while salir !="no":
+            
+            ciudad = ingresar_ciudad(texts)
+            limpiar_consola()
+            mostrar_clima_actual(solicitar_clima(ciudad, API_KEY, units,language_code,texts), ciudad, simbolo,texts)
+            while True:
+                salir = input(texts["otra_consulta"])
+                if salir.lower()=="no":
+                    break
+                elif salir.lower()=="yes" or salir.lower()=="si" :
+                    limpiar_consola()
+                    break
+                else: 
+                    print(texts["entrada_no_validad"])
+                    continue
 
-        if opcion_pronostico == 'n':
+    elif seleccion == "2":
+        limpiar_consola()
+        salir_extendido="yes"
+        while salir_extendido != "no":
+
+            ciudad = ingresar_ciudad(texts)
+            limpiar_consola()
+            mostrar_pronostico_extendido(solicitar_clima_extendido(ciudad, API_KEY, units,language_code,texts), simbolo,ciudad,texts)
+            while True:
+                salir_extendido = input(texts["otra_consulta"])
+                if salir_extendido.lower()=="no":
+                    break
+                elif salir_extendido.lower()=="yes" or salir_extendido.lower()=="si":
+                    limpiar_consola()
+                    break
+                else: 
+                    print(texts["entrada_no_validad"])
+                    continue
+        
+
+    elif seleccion == "3":
+        historial(texts)
+
+    elif seleccion == "4":
+       resultado = configuracion(units,simbolo,texts,language_code)
+       units,simbolo= resultado["unidades"]
+       language_code= resultado["lenguaje"]
+       texts = idioma(language_code)
+
+
+    elif seleccion == "5":
+        limpiar_consola()
+        continuar = input(texts["seguro_salir"])
+        if continuar.lower() != 'no':
+            print(texts["saliendo"])
             break
-        elif opcion_pronostico == 's':
-            url_forecast = f"https://api.openweathermap.org/data/2.5/forecast?q={ciudad}&appid={API_KEY}&units=metric&lang=es"
-            res_forecast = requests.get(url_forecast)
-            data_forecast = res_forecast.json()
+        else:print(texts["regresar_menu"])
 
-            print("-------Pronóstico Extendido a 5 Días-------")
-            for forecast in data_forecast['list']:
-                fecha = forecast['dt_txt']
-                temp_forecast = forecast['main']['temp']
-                hum_forecast = forecast["main"]["humidity"]
-                desc_forecast = forecast['weather'][0]['description']
-                if unidades == "Imperial":
-                    temp_forecast_c = (temp_forecast * 9/5) + 32 
-                    print(f"{fecha}: {temp_forecast_c:.2f}°F, Humedad: {hum_forecast} %, {desc_forecast}")
-                else:
-                    print(f"{fecha}: {temp_forecast:.2f}°C, Humedad: {hum_forecast} %, {desc_forecast}")
-            print("------------------------------------------")
-            break
-        else:
-            print("Opción no válida. Intente nuevamente")
-            print("-----------------------------")
+    else:
+        print("---------------------------ERROR-------------------------------")
+        print(texts["opcion_no"])
+        print("---------------------------------------------------------------")
+           
 
-    while True:
-        opcion = input("¿Quiere hacer otra consulta? (ingrese 's' para sí o 'n' para no): ").lower()
-        print("-----------------------------")
-
-        if opcion == 'n':
-            print("Saliendo...")
-            exit()
-        elif opcion == 's':
-            break
-        else:
-            print("Opción no válida. Intente nuevamente")
-            print("-----------------------------")
